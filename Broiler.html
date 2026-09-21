@@ -963,6 +963,17 @@
           </div>
           <button onclick="openNewFarmModal()" class="flex-none px-3 py-1.5 bg-brand-600 text-white rounded-xl text-xs font-bold">＋ ခြံအသစ်</button>
         </div>
+        <!-- Farm horizontal scroll indicator controls -->
+        <div id="layoutFarmScrollControlsWeb" class="flex items-center justify-between gap-2 text-xs pt-0.5">
+          <div class="flex items-center gap-2">
+            <span id="badgeFarmScrollHintWeb" class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-bold bg-blue-50 text-blue-700 border border-blue-200">↔️ ဘယ်/ညာ ဆွဲကြည့်ပါ</span>
+            <span id="detailFarmCountBadge" class="text-[11px] text-slate-500 font-medium"></span>
+          </div>
+          <div class="flex items-center gap-1">
+            <button type="button" title="ဘယ်ဘက်သို့ ရွှေ့မည်" onclick="document.getElementById('detailFarmsGrid')?.scrollBy({left: -300, behavior: 'smooth'})" class="w-7 h-7 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 active:scale-95 flex items-center justify-center text-[11px] font-bold text-slate-700">◀</button>
+            <button type="button" title="ညာဘက်သို့ ရွှေ့မည်" onclick="document.getElementById('detailFarmsGrid')?.scrollBy({left: 300, behavior: 'smooth'})" class="w-7 h-7 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 active:scale-95 flex items-center justify-center text-[11px] font-bold text-slate-700">▶</button>
+          </div>
+        </div>
         <div id="detailFarmsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2"></div>
         <div id="farmInfoCard" class="bg-white rounded-2xl border border-slate-200 shadow-2xs p-3.5 lg:p-4 space-y-2">
           <h3 class="font-extrabold text-sm text-brand-900 flex items-center gap-1.5">ⓘ ခြံအချက်အလက်</h3>
@@ -1362,17 +1373,42 @@
             <button id="settingsLogoutBtn" onclick="handleSignOut()" class="w-full px-3 py-2.5 rounded-xl border border-rose-300 text-rose-700 hover:bg-rose-50 text-xs font-extrabold">Logout and clear this device</button>
           </div>
 
-          <div id="broilerAccountCard" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex items-center gap-3 cursor-pointer" onclick="openBroilerAccountManagement()">
-            <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style="background:#E8EAF6;color:#5C6BC0">⚙️</div>
-            <div class="flex-1 min-w-0">
-              <div class="font-bold text-[15px] text-slate-800">အကောင့် စီမံ</div>
-              <div id="broilerAccountCardSub" class="text-xs text-slate-400">Login / Register / Password ပြောင်းရန်</div>
+          <!-- Settings Main Cards Menu -->
+          <div id="broilerSettingsMainMenu" class="space-y-3">
+            <!-- Card 1: Account Management -->
+            <div id="broilerAccountCard" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition" onclick="openBroilerAccountManagement()">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style="background:#E8EAF6;color:#5C6BC0">👤</div>
+              <div class="flex-1 min-w-0">
+                <div id="txtSetMenuAcctTitle" class="font-bold text-[15px] text-slate-800">အကောင့် စီမံခန့်ခွဲမှု</div>
+                <div id="broilerAccountCardSub" class="text-xs text-slate-400">Login / Register / Password ပြောင်းရန်</div>
+              </div>
+              <i class="fa-solid fa-chevron-right text-slate-400"></i>
             </div>
-            <i class="fa-solid fa-chevron-right text-slate-400"></i>
+
+            <!-- Card 2: Language -->
+            <div id="broilerLanguageCard" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition" onclick="openBroilerLanguageManagement()">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style="background:#E1F5FE;color:#039BE5">🌐</div>
+              <div class="flex-1 min-w-0">
+                <div id="txtSetMenuLangTitle" class="font-bold text-[15px] text-slate-800">ဘာသာစကား (Language)</div>
+                <div id="broilerLanguageCardSub" class="text-xs text-brand-600 font-bold">မြန်မာ (Myanmar)</div>
+              </div>
+              <i class="fa-solid fa-chevron-right text-slate-400"></i>
+            </div>
+
+            <!-- Card 3: Data Backup / Restore -->
+            <div id="broilerBackupCard" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex items-center gap-3 cursor-pointer hover:bg-slate-50 transition" onclick="openBroilerBackupManagement()">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style="background:#E8F5E9;color:#43A047">💾</div>
+              <div class="flex-1 min-w-0">
+                <div id="txtSetMenuBkTitle" class="font-bold text-[15px] text-slate-800">Data Backup / Restore</div>
+                <div id="setBkSub" class="text-xs text-slate-400">ရွေးထားသည့်ခြံကို backup သိမ်းနိုင်ပါသည်</div>
+              </div>
+              <i class="fa-solid fa-chevron-right text-slate-400"></i>
+            </div>
           </div>
 
+          <!-- Sub-Panel 1: Account Management -->
           <div id="broilerAccountManagement" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
-            <button type="button" onclick="closeBroilerAccountManagement()" class="flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-brand-700 mb-4"><i class="fa-solid fa-arrow-left"></i> Settings သို့ ပြန်ရန်</button>
+            <button type="button" onclick="closeBroilerSubPanels()" class="flex items-center gap-2 text-xs font-bold text-brand-600 hover:text-brand-800 mb-4"><i class="fa-solid fa-arrow-left"></i> <span id="txtBackToSettings1">Settings သို့ ပြန်ရန်</span></button>
             <div id="broilerAcctLoggedOut" class="space-y-3">
               <div class="font-bold text-[15px] text-slate-800">အကောင့်ဝင်ထားခြင်း မရှိသေးပါ</div>
               <div class="text-xs text-slate-500">Login ဝင်ရန် သို့မဟုတ် account အသစ်ဖွင့်ရန်</div>
@@ -1389,31 +1425,47 @@
             </div>
           </div>
 
-          <!-- Layer.html-style language card -->
-          <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex items-center gap-3">
-            <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style="background:#E1F5FE;color:#039BE5">🌐</div>
-            <div class="flex-1 min-w-0"><div class="font-bold text-[15px] text-slate-800">ဘာသာစကား (Language)</div></div>
-            <div class="flex rounded-full border border-slate-300 overflow-hidden shrink-0">
-              <button id="broilerLangMy" onclick="setBroilerLanguage('my')" class="px-3 py-1.5 text-xs font-bold bg-brand-600 text-white">မြန်မာ</button>
-              <button id="broilerLangEn" onclick="setBroilerLanguage('en')" class="px-3 py-1.5 text-xs font-bold text-slate-600">English</button>
+          <!-- Sub-Panel 2: Language Selection (Checkmark list) -->
+          <div id="broilerLanguageManagement" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-4 space-y-3">
+            <button type="button" onclick="closeBroilerSubPanels()" class="flex items-center gap-2 text-xs font-bold text-brand-600 hover:text-brand-800 mb-2"><i class="fa-solid fa-arrow-left"></i> <span id="txtBackToSettings2">Settings သို့ ပြန်ရန်</span></button>
+            <h3 id="txtLangHeader" class="font-extrabold text-slate-800 text-sm">ဘာသာစကား ရွေးချယ်ပါ / Select Language</h3>
+            <!-- Row 1: Myanmar -->
+            <div id="rowBroilerLangMy" onclick="setBroilerLanguage('my')" class="p-3.5 rounded-xl border border-slate-200 flex items-center justify-between cursor-pointer hover:bg-slate-50 transition">
+              <div class="flex items-center gap-3">
+                <span class="text-xl">🇲🇲</span>
+                <span class="font-bold text-sm text-slate-800">မြန်မာ (Myanmar)</span>
+              </div>
+              <span id="broilerLangCheckMy" class="text-brand-600 font-extrabold text-base">✓</span>
+            </div>
+            <!-- Row 2: English -->
+            <div id="rowBroilerLangEn" onclick="setBroilerLanguage('en')" class="p-3.5 rounded-xl border border-slate-200 flex items-center justify-between cursor-pointer hover:bg-slate-50 transition">
+              <div class="flex items-center gap-3">
+                <span class="text-xl">🇬🇧</span>
+                <span class="font-bold text-sm text-slate-800">English</span>
+              </div>
+              <span id="broilerLangCheckEn" class="text-brand-600 font-extrabold text-base hidden">✓</span>
             </div>
           </div>
 
-          <!-- Layer.html-style Data Backup / Restore -->
-          <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
+          <!-- Sub-Panel 3: Data Backup / Restore -->
+          <div id="broilerBackupManagement" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-4 space-y-3">
+            <button type="button" onclick="closeBroilerSubPanels()" class="flex items-center gap-2 text-xs font-bold text-brand-600 hover:text-brand-800 mb-2"><i class="fa-solid fa-arrow-left"></i> <span id="txtBackToSettings3">Settings သို့ ပြန်ရန်</span></button>
             <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style="background:#E8F5E9;color:#43A047">💾</div>
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg flex-shrink-0" style="background:#E8F5E9;color:#43A047">💾</div>
               <div class="flex-1 min-w-0">
-                <div class="font-bold text-[15px] text-slate-800">Data Backup / Restore</div>
-                <div id="setBkSub" class="text-xs text-slate-400">ရွေးထားတဲ့ခြံကို backup သိမ်းနိုင်ပါတယ်</div>
+                <div class="font-bold text-sm text-slate-800">Data Backup / Restore</div>
+                <div id="setBkSub2" class="text-xs text-slate-400">ရွေးထားတဲ့ခြံကို backup သိမ်းနိုင်ပါတယ်</div>
               </div>
             </div>
-            <div class="mt-3"><select id="bkFarmSel" class="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm font-bold focus:ring-2 focus:ring-emerald-500 outline-none"></select></div>
-            <div class="flex flex-wrap gap-2 mt-2">
+            <div>
+              <label id="txtBkFarmLabel" class="block text-xs font-bold text-slate-700 mb-1">Backup လုပ်မည့် ခြံကို ရွေးချယ်ပါ</label>
+              <select id="bkFarmSel" class="w-full border border-slate-300 rounded-xl px-3 py-2.5 text-sm font-bold focus:ring-2 focus:ring-emerald-500 outline-none"></select>
+            </div>
+            <div class="flex flex-wrap gap-2 pt-1">
               <button onclick="backupSelectedFarm()" class="flex-1 min-w-[130px] px-3 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white"><i class="fa-solid fa-download mr-1"></i> ခြံ Backup</button>
               <button onclick="pickImportFile()" class="flex-1 min-w-[130px] px-3 py-2 rounded-xl text-xs font-bold bg-slate-600 hover:bg-slate-700 text-white"><i class="fa-solid fa-upload mr-1"></i> Backup ပြန်တင်</button>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
               <button onclick="backupAllBroilerData()" class="px-3 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white"><i class="fa-solid fa-download mr-1"></i> ခြံအားလုံး Backup</button>
               <button onclick="refreshCloudData(); renderSettings()" class="px-3 py-2 rounded-xl text-xs font-bold bg-brand-600 hover:bg-brand-700 text-white"><i class="fa-solid fa-rotate mr-1"></i> Cloud ပြန်ဆွဲ</button>
             </div>
@@ -2228,13 +2280,14 @@
       if (!drawer) return;
       const first = drawer.querySelector('.drawer-item');
       const farmTab = drawer.querySelector('[data-tab="performance"]');
+      const isEn = broilerLanguage() === 'en';
       if (farmTab) {
         const label = farmTab.querySelector('span:not(.di-icon)');
-        if (label) label.innerText = 'ခြံစာရင်း';
+        if (label) label.innerText = isEn ? 'Farm List' : 'ခြံစာရင်း';
         if (first && first !== farmTab) drawer.insertBefore(farmTab, first);
       }
       const desktopLabel = document.querySelector('#dtabBtn-performance');
-      if (desktopLabel) desktopLabel.lastChild.textContent = ' ကြက်ခြံစာရင်း';
+      if (desktopLabel) desktopLabel.lastChild.textContent = isEn ? ' Farm List' : ' ကြက်ခြံစာရင်း';
     }
 
     // Re-apply translated labels after the menu-order helper updates the rail.
@@ -2998,6 +3051,11 @@
       const detailGrid = document.getElementById('detailFarmsGrid');
       if (detailGrid) detailGrid.innerHTML = container.innerHTML;
 
+      const farmControls = document.getElementById('layoutFarmScrollControlsWeb');
+      const countBadge = document.getElementById('detailFarmCountBadge');
+      if (countBadge) countBadge.textContent = `(${farms.length} ခြံ)`;
+      if (farmControls) farmControls.style.display = farms.length > 1 ? 'flex' : 'none';
+
       // Broiler now opens directly into the dashboard; the old farm-list home
       // remains only as the empty-state/create-farm screen.
       if (farms.length) {
@@ -3077,6 +3135,12 @@
 
     function updateTabFarmSummary() {
       if (!currentFarm) return;
+      if (activeTab === 'settings') {
+        const content = document.getElementById('tabContent-settings');
+        const card = content?.querySelector('.broiler-tab-farm-summary');
+        if (card) card.remove();
+        return;
+      }
       const content = document.getElementById(`tabContent-${activeTab}`);
       if (!content) return;
       let card = content.querySelector('.broiler-tab-farm-summary');
@@ -3158,6 +3222,8 @@
       if (dBreedM) dBreedM.innerText = `• ${currentFarm.company || 'Belga'}`;
       if (dMetaM) dMetaM.innerText = `• ${currentFarm.startCount.toLocaleString()} ကောင်`;
       if (dAgeM) dAgeM.innerText = ageTxtForHeader;
+      const statusStrip = document.getElementById('detailFarmStatusStrip');
+      if (statusStrip) statusStrip.classList.toggle('hidden', activeTab === 'settings');
       updateTabFarmSummary();
 
       syncFarmSelectorVisibility();
@@ -3187,19 +3253,31 @@
     }
 
     function openBroilerAccountManagement() {
-      const panel = document.getElementById('broilerAccountManagement');
-      if (panel) panel.classList.remove('hidden');
-      const card = document.getElementById('broilerAccountCard');
-      if (card) card.classList.add('hidden');
+      document.getElementById('broilerSettingsMainMenu')?.classList.add('hidden');
+      document.getElementById('broilerAccountManagement')?.classList.remove('hidden');
       renderBroilerAccountManagement();
     }
+    function openBroilerLanguageManagement() {
+      document.getElementById('broilerSettingsMainMenu')?.classList.add('hidden');
+      document.getElementById('broilerLanguageManagement')?.classList.remove('hidden');
+      renderBroilerLanguage();
+    }
+    function openBroilerBackupManagement() {
+      document.getElementById('broilerSettingsMainMenu')?.classList.add('hidden');
+      document.getElementById('broilerBackupManagement')?.classList.remove('hidden');
+      renderBroilerBackupFarmSelect();
+    }
+    function closeBroilerSubPanels() {
+      document.getElementById('broilerAccountManagement')?.classList.add('hidden');
+      document.getElementById('broilerLanguageManagement')?.classList.add('hidden');
+      document.getElementById('broilerBackupManagement')?.classList.add('hidden');
+      document.getElementById('broilerSettingsMainMenu')?.classList.remove('hidden');
+    }
     function closeBroilerAccountManagement() {
-      const panel = document.getElementById('broilerAccountManagement');
-      if (panel) panel.classList.add('hidden');
-      const card = document.getElementById('broilerAccountCard');
-      if (card) card.classList.remove('hidden');
+      closeBroilerSubPanels();
     }
     function renderBroilerAccountManagement() {
+      const isEn = broilerLanguage() === 'en';
       const loggedIn = !!currentUser;
       const out = document.getElementById('broilerAcctLoggedOut');
       const inside = document.getElementById('broilerAcctLoggedIn');
@@ -3208,7 +3286,13 @@
       if (out) out.classList.toggle('hidden', loggedIn);
       if (inside) inside.classList.toggle('hidden', !loggedIn);
       if (email) email.innerText = loggedIn ? (currentUser.email || 'Account') : '-';
-      if (sub) sub.innerText = loggedIn ? (currentUser.email || 'Login ဝင်ထားသည်') : 'Login / Register / Password ပြောင်းရန်';
+      if (sub) {
+        if (loggedIn) {
+          sub.innerText = currentUser.email || (isEn ? 'Logged in' : 'Login ဝင်ထားသည်');
+        } else {
+          sub.innerText = isEn ? 'Login / Register / Change Password' : 'Login / Register / Password ပြောင်းရန်';
+        }
+      }
     }
     function toggleBroilerPassword(id, button) {
       const input = document.getElementById(id);
@@ -3219,23 +3303,24 @@
       if (icon) icon.className = show ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye';
     }
     async function changeBroilerPassword() {
+      const isEn = broilerLanguage() === 'en';
       const user = auth.currentUser;
       if (!user || !user.email) { openLoginModal(); return; }
       const current = document.getElementById('broilerPwdCurrent')?.value || '';
       const next = document.getElementById('broilerPwdNew')?.value || '';
       const confirmNext = document.getElementById('broilerPwdConfirm')?.value || '';
-      if (!current || !next || !confirmNext) { showToast('Password အချက်အလက်အားလုံး ဖြည့်ပါ'); return; }
-      if (next.length < 6) { showToast('Password အနည်းဆုံး ၆ လုံး လိုပါတယ်'); return; }
-      if (next !== confirmNext) { showToast('Password အသစ်နှစ်ခု မတူပါ'); return; }
+      if (!current || !next || !confirmNext) { showToast(isEn ? 'Please fill in all password fields' : 'Password အချက်အလက်အားလုံး ဖြည့်ပါ'); return; }
+      if (next.length < 6) { showToast(isEn ? 'Password must be at least 6 characters' : 'Password အနည်းဆုံး ၆ လုံး လိုပါတယ်'); return; }
+      if (next !== confirmNext) { showToast(isEn ? 'Passwords do not match' : 'Password အသစ်နှစ်ခု မတူပါ'); return; }
       try {
         const credential = firebase.auth.EmailAuthProvider.credential(user.email, current);
         await user.reauthenticateWithCredential(credential);
         await user.updatePassword(next);
         ['broilerPwdCurrent','broilerPwdNew','broilerPwdConfirm'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
-        showToast('Password ပြောင်းပြီးပါပြီ');
+        showToast(isEn ? 'Password changed successfully' : 'Password ပြောင်းပြီးပါပြီ');
       } catch (e) {
         const code = e && e.code || '';
-        showToast(code.includes('wrong-password') || code.includes('invalid-credential') ? 'လက်ရှိ Password မှားနေပါတယ်' : 'Password ပြောင်းမရပါ');
+        showToast(code.includes('wrong-password') || code.includes('invalid-credential') ? (isEn ? 'Current password incorrect' : 'လက်ရှိ Password မှားနေပါတယ်') : (isEn ? 'Cannot change password' : 'Password ပြောင်းမရပါ'));
       }
     }
 
@@ -3260,17 +3345,24 @@
       return localStorage.getItem('ynl_broiler_lang') === 'en' ? 'en' : 'my';
     }
     function applyBroilerMenuLanguage() {
-      const labels = BROILER_MENU_LABELS[broilerLanguage()];
+      const isEn = broilerLanguage() === 'en';
+      const labels = BROILER_MENU_LABELS[isEn ? 'en' : 'my'];
+
+      TAB_TITLES.performance = isEn ? 'Farm List' : 'ကြက်ခြံစာရင်း';
+      TAB_TITLES.recordList = isEn ? 'Daily Records' : 'နေ့စဉ်မှတ်တမ်း';
+      TAB_TITLES.summary = isEn ? 'Weekly Summary' : 'အပတ်စဉ်စာရင်း';
+      TAB_TITLES.income_expense = isEn ? 'Income / Expense' : 'ဝင်ငွေ / ထွက်ငွေ';
+      TAB_TITLES.settings = isEn ? 'Settings' : 'ဆက်တင်များ';
+
       const menuButton = document.getElementById('btnDetailMenu');
       if (menuButton) {
-        menuButton.title = broilerLanguage() === 'en' ? 'Menu' : 'မီနူး';
+        menuButton.title = isEn ? 'Menu' : 'မီနူး';
         menuButton.setAttribute('aria-label', menuButton.title);
       }
       const entryButtons = [document.getElementById('btnHeaderEntryTop'), document.getElementById('btnHeaderEntry')].filter(Boolean);
       entryButtons.forEach(entryButton => {
-        const en = broilerLanguage() === 'en';
-        entryButton.title = en ? 'Add daily entry' : 'နေ့စဉ်စာရင်းသွင်းရန်';
-        entryButton.innerHTML = `➕ <span class="hidden sm:inline">${en ? 'Add Entry' : 'နေ့စဉ်စာရင်းသွင်းရန်'}</span><span class="sm:hidden">${en ? 'Add' : 'စာရင်းသွင်း'}</span>`;
+        entryButton.title = isEn ? 'Add daily entry' : 'နေ့စဉ်စာရင်းသွင်းရန်';
+        entryButton.innerHTML = `➕ <span class="hidden sm:inline">${isEn ? 'Add Entry' : 'နေ့စဉ်စာရင်းသွင်းရန်'}</span><span class="sm:hidden">${isEn ? 'Add' : 'စာရင်းသွင်း'}</span>`;
       });
       document.querySelectorAll('#drawer .drawer-item').forEach(item => {
         const key = item.dataset.tab;
@@ -3281,22 +3373,61 @@
         item.title = label;
         item.setAttribute('aria-label', label);
       });
+
+      // Update desktop tabs
+      const dRecord = document.getElementById('dtabBtn-recordList');
+      if (dRecord) dRecord.innerHTML = `<span class="text-base">📋</span> ${isEn ? 'Daily Records' : 'နေ့စဉ် မှတ်တမ်း'}`;
+      const dSummary = document.getElementById('dtabBtn-summary');
+      if (dSummary) dSummary.innerHTML = `<span class="text-base">📊</span> ${isEn ? 'Weekly Summary' : 'အပါတ်စဉ်'}`;
+      const dFarm = document.getElementById('dtabBtn-performance');
+      if (dFarm) dFarm.innerHTML = `<span class="text-base">🏠</span> ${isEn ? 'Farm List' : 'ကြက်ခြံစာရင်း'}`;
+      const dIncome = document.getElementById('dtabBtn-income_expense');
+      if (dIncome) dIncome.innerHTML = `<span class="text-base">💰</span> ${isEn ? 'Income/Expense' : 'ဝင်ငွေ/ထွက်ငွေ'}`;
+      const dSettings = document.getElementById('dtabBtn-settings');
+      if (dSettings) dSettings.innerHTML = `<span class="text-base">⚙️</span> ${isEn ? 'Settings' : 'Settings'}`;
+
+      // Update header title
+      const hdrTitle = document.getElementById('headerTitle');
+      if (hdrTitle) hdrTitle.innerText = TAB_TITLES[activeTab] || activeTab;
+
+      // Settings screen bilingual texts
+      const checkMy = document.getElementById('broilerLangCheckMy');
+      const checkEn = document.getElementById('broilerLangCheckEn');
+      if (checkMy) checkMy.classList.toggle('hidden', isEn);
+      if (checkEn) checkEn.classList.toggle('hidden', !isEn);
+
+      const langSub = document.getElementById('broilerLanguageCardSub');
+      if (langSub) langSub.innerText = isEn ? 'English' : 'မြန်မာ (Myanmar)';
+
+      const acctTitle = document.getElementById('txtSetMenuAcctTitle');
+      if (acctTitle) acctTitle.innerText = isEn ? 'Account Management' : 'အကောင့် စီမံခန့်ခွဲမှု';
+      const langTitle = document.getElementById('txtSetMenuLangTitle');
+      if (langTitle) langTitle.innerText = isEn ? 'Language' : 'ဘာသာစကား (Language)';
+      const bkTitle = document.getElementById('txtSetMenuBkTitle');
+      if (bkTitle) bkTitle.innerText = isEn ? 'Data Backup / Restore' : 'Data Backup / Restore';
+
+      const back1 = document.getElementById('txtBackToSettings1');
+      if (back1) back1.innerText = isEn ? 'Back to Settings' : 'Settings သို့ ပြန်ရန်';
+      const back2 = document.getElementById('txtBackToSettings2');
+      if (back2) back2.innerText = isEn ? 'Back to Settings' : 'Settings သို့ ပြန်ရန်';
+      const back3 = document.getElementById('txtBackToSettings3');
+      if (back3) back3.innerText = isEn ? 'Back to Settings' : 'Settings သို့ ပြန်ရန်';
+
+      const langHdr = document.getElementById('txtLangHeader');
+      if (langHdr) langHdr.innerText = isEn ? 'Select Language' : 'ဘာသာစကား ရွေးချယ်ပါ / Select Language';
+      const bkFarmLbl = document.getElementById('txtBkFarmLabel');
+      if (bkFarmLbl) bkFarmLbl.innerText = isEn ? 'Select Farm to Backup' : 'Backup လုပ်မည့် ခြံကို ရွေးချယ်ပါ';
     }
 
-    // Layer.html-style language preference for the Settings control.
+    // Language preference for the Settings control.
     function setBroilerLanguage(lang) {
       localStorage.setItem('ynl_broiler_lang', lang === 'en' ? 'en' : 'my');
       renderBroilerLanguage();
       applyBroilerMenuLanguage();
-      switchTab(activeTab);
+      renderBroilerAccountManagement();
       showToast(lang === 'en' ? 'English selected' : 'မြန်မာဘာသာ ရွေးထားသည်');
     }
     function renderBroilerLanguage() {
-      const lang = localStorage.getItem('ynl_broiler_lang') || 'my';
-      const my = document.getElementById('broilerLangMy');
-      const en = document.getElementById('broilerLangEn');
-      if (my) my.className = `px-3 py-1.5 text-xs font-bold ${lang === 'my' ? 'bg-brand-600 text-white' : 'text-slate-600'}`;
-      if (en) en.className = `px-3 py-1.5 text-xs font-bold ${lang === 'en' ? 'bg-brand-600 text-white' : 'text-slate-600'}`;
       applyBroilerMenuLanguage();
     }
 
