@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta id="metaThemeColor" name="theme-color" content="#1e3a8a" />
+  <meta id="metaThemeColor" name="theme-color" content="#f5f5f5" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="app-version" content="1.3.0-premium-theme" />
@@ -752,7 +752,19 @@
     #headerRightActions, #headerBrandLogo { display: none !important; }
     #drawer .dr-avatar { background-image:url('broiler-daily-record-app-icon.png'); background-size:cover; background-position:center; font-size:0; }
     header.appbar .appbar-inner::after { content:""; width:38px; height:38px; flex:none; border-radius:12px; background:url('broiler-daily-record-app-icon.png') center/cover no-repeat; box-shadow:0 2px 8px rgba(0,0,0,.22); }
-  </style>
+/* Neutral design refresh — aligned with DESIGN.md */
+:root{
+ --bg:#f5f5f5!important;--bg-page:#f5f5f5!important;--surface:#fff!important;--surface-1:#fff!important;--surface-2:#fafafa!important;--surface-3:#f5f5f5!important;
+ --card:#fff!important;--pri:#171717!important;--pri-d:#0a0a0a!important;--brand:#171717!important;--brand-primary:#171717!important;--brand-dark:#0a0a0a!important;
+ --txt:#0a0a0a!important;--text:#0a0a0a!important;--text-strong:#0a0a0a!important;--muted:#737373!important;--text-muted:#737373!important;--line:#e5e5e5!important;--border:#e5e5e5!important;
+ --head:#171717!important;--head2:#262626!important;--shadow:0 0 0 1px rgba(23,23,23,.04),0 1px 3px rgba(0,0,0,.07)!important;
+}
+body{background:#f5f5f5!important;color:#0a0a0a!important}
+.card,.panel,.modal-content,.stat-card,.summary-card{background:#fff!important;border:1px solid #e5e5e5!important;border-radius:24px!important;box-shadow:0 0 0 1px rgba(23,23,23,.04),0 1px 3px rgba(0,0,0,.07)!important}
+button,.btn,.btn-ok,.hdr-primary{border-radius:18px!important}
+input,select,textarea{border-radius:18px!important}
+:focus-visible{outline:2px solid #a3a3a3!important;outline-offset:2px}
+</style>
 </head>
 <body class="h-full flex flex-col antialiased select-none selection:bg-brand-500 selection:text-white">
 

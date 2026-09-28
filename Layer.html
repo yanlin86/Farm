@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Layer ကြက်မွေးမြူရေး - Daily Record</title>
-<meta name="theme-color" content="#475AD7">
+<meta name="theme-color" content="#f5f5f5">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -450,6 +450,19 @@ tailwind.config={
   .text-xl{ font-size:21.5px !important }
   .text-2xl{ font-size:25.5px !important }
   .text-3xl{ font-size:31px !important }
+
+/* Neutral design refresh — aligned with DESIGN.md */
+:root{
+ --bg:#f5f5f5!important;--bg-page:#f5f5f5!important;--surface:#fff!important;--surface-1:#fff!important;--surface-2:#fafafa!important;--surface-3:#f5f5f5!important;
+ --card:#fff!important;--pri:#171717!important;--pri-d:#0a0a0a!important;--brand:#171717!important;--brand-primary:#171717!important;--brand-dark:#0a0a0a!important;
+ --txt:#0a0a0a!important;--text:#0a0a0a!important;--text-strong:#0a0a0a!important;--muted:#737373!important;--text-muted:#737373!important;--line:#e5e5e5!important;--border:#e5e5e5!important;
+ --head:#171717!important;--head2:#262626!important;--shadow:0 0 0 1px rgba(23,23,23,.04),0 1px 3px rgba(0,0,0,.07)!important;
+}
+body{background:#f5f5f5!important;color:#0a0a0a!important}
+.card,.panel,.modal-content,.stat-card,.summary-card{background:#fff!important;border:1px solid #e5e5e5!important;border-radius:24px!important;box-shadow:0 0 0 1px rgba(23,23,23,.04),0 1px 3px rgba(0,0,0,.07)!important}
+button,.btn,.btn-ok,.hdr-primary{border-radius:18px!important}
+input,select,textarea{border-radius:18px!important}
+:focus-visible{outline:2px solid #a3a3a3!important;outline-offset:2px}
 </style>
 </head>
 <body class="text-slate-800">
