@@ -1,34 +1,385 @@
-<!doctype html>
-<html lang="my">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Thunn Wathan Lin Farm</title>
-  <style>
-    :root{font-family:Inter,"Noto Sans Myanmar",system-ui,sans-serif;color:#0a0a0a;background:#f5f5f5;--canvas:#f5f5f5;--paper:#fff;--soft:#fafafa;--ink:#0a0a0a;--muted:#737373;--line:#e5e5e5;--shadow:0 0 0 1px rgba(23,23,23,.04),0 1px 3px rgba(0,0,0,.07)}
-    *{box-sizing:border-box}body{margin:0;min-height:100vh;padding:32px 20px;background:var(--canvas)}main{max-width:1080px;margin:auto}
-    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 11px;border:1px solid var(--line);border-radius:18px;background:var(--paper);color:var(--muted);font-size:12px;font-weight:500;letter-spacing:.04em;text-transform:uppercase}
-    h1{color:var(--ink);margin:18px 0 6px;font-size:clamp(2rem,5vw,3rem);line-height:1.1;letter-spacing:-.05em;font-weight:600}.lead{color:var(--muted);margin:0 0 30px;font-size:16px;line-height:1.6}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}.card,.download{display:block;background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:20px;text-decoration:none;color:inherit;box-shadow:var(--shadow);transition:transform .18s ease,border-color .18s ease}.card:hover,.download:hover{transform:translateY(-2px);border-color:#cfcfcf}
-    .icon{width:48px;height:48px;display:grid;place-items:center;border:1px solid var(--line);border-radius:18px;background:#fafafa;font-size:1.5rem}.card h2{margin:16px 0 5px;color:var(--ink);font-size:18px;letter-spacing:-.02em}.card p{margin:0;color:var(--muted);font-size:14px;line-height:1.6}.btn{display:inline-flex;align-items:center;justify-content:center;margin-top:18px;min-height:38px;padding:8px 15px;border-radius:18px;background:#0a0a0a;color:#fafafa;font-size:14px;font-weight:500}
-    h2.section{color:var(--ink);margin:42px 0 14px;font-size:24px;letter-spacing:-.025em}.downloads{display:grid;gap:12px}.download{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px}.download strong{color:var(--ink);font-size:14px;font-weight:500}.download small{display:block;color:var(--muted);margin-top:4px;font-size:13px}.download .btn{margin:0;white-space:nowrap}footer{color:var(--muted);text-align:center;margin-top:40px;padding:20px;font-size:13px;border-top:1px solid var(--line)}
-    @media(max-width:560px){body{padding:22px 16px}.lead{margin-bottom:24px}.download{align-items:flex-start;flex-direction:column}.download .btn{margin-top:8px}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#16a34a">
+<meta name="description" content="Thunn Wathan Lin — poultry farming web apps and Android APK downloads.">
+<title>Thunn Wathan Lin</title>
+<link rel="icon" href="/img/layer.png">
+<style>
+  :root{
+    --green:#16a34a;
+    --green-dark:#14532d;
+    --green-light:#dcfce7;
+    --bg:#fafaf9;
+    --card:#ffffff;
+    --ink:#1c1917;
+    --muted:#57534e;
+    --stroke:#e7e5e4;
+    --radius:16px;
+    --shadow:0 10px 30px -14px rgba(28,25,23,.25);
+    --broiler:#ea580c;
+    --layer:#ca8a04;
+    --quail:#0d9488;
+    --dealer:#2563eb;
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+
+  body{
+    font-family:'Noto Sans Myanmar','Padauk','Segoe UI',system-ui,-apple-system,Tahoma,Verdana,sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    min-height:100vh;
+    line-height:1.6;
+    font-size:16px;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{ width:100%; max-width:1180px; margin-inline:auto; padding:0 1.25rem; }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(14px) saturate(150%);
+    -webkit-backdrop-filter:blur(14px) saturate(150%);
+    border-bottom:1px solid var(--stroke);
+  }
+  .nav{ display:flex; align-items:center; justify-content:space-between; min-height:66px; gap:1rem; padding-block:.6rem; }
+  .brand{ display:flex; align-items:center; gap:.65rem; text-decoration:none; color:var(--ink); min-width:0; }
+  .brand-mark{
+    width:40px;height:40px;flex:0 0 40px;border-radius:13px;
+    background:linear-gradient(140deg,var(--green),var(--green-dark));
+    display:grid;place-items:center;font-weight:800;font-size:1rem;color:#fff;
+    box-shadow:0 6px 16px -6px var(--green);
+  }
+  .brand-text{ display:flex; flex-direction:column; line-height:1.2; min-width:0; }
+  .brand-text b{ font-size:1rem; letter-spacing:-.01em; white-space:nowrap; color:var(--green-dark); }
+  .brand-text small{ font-size:.75rem; color:var(--muted); white-space:nowrap; }
+
+  .nav-links{ display:flex; align-items:center; gap:.35rem; }
+  .nav-links a{
+    padding:.5rem .9rem; border-radius:999px; text-decoration:none;
+    color:var(--muted); font-size:.95rem; font-weight:600;
+    transition:color .2s, background .2s;
+    min-height:48px; display:inline-flex; align-items:center;
+  }
+  .nav-links a:hover{ color:var(--green-dark); background:var(--green-light); }
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+    min-height:48px; padding:.8rem 1.6rem; border-radius:14px; text-decoration:none;
+    font-weight:700; font-size:1rem; cursor:pointer; border:2px solid transparent;
+    transition:transform .2s, box-shadow .2s, background .2s, border-color .2s;
+  }
+  .btn-primary{ background:var(--green); color:#fff; box-shadow:0 10px 24px -12px var(--green); }
+  .btn-primary:hover{ background:var(--green-dark); transform:translateY(-2px); }
+  .btn-ghost{ background:#fff; border-color:var(--green); color:var(--green-dark); }
+  .btn-ghost:hover{ background:var(--green-light); transform:translateY(-2px); }
+
+  /* ---------- hero ---------- */
+  .hero{
+    text-align:center; padding:4rem 0 3.2rem;
+    background:
+      radial-gradient(60rem 30rem at 50% -10%, #bbf7d0 0%, transparent 60%),
+      linear-gradient(180deg, #f0fdf4 0%, var(--bg) 90%);
+    border-bottom:1px solid var(--stroke);
+    position:relative; overflow:hidden;
+  }
+  .hero .field-emoji{
+    position:absolute; font-size:3rem; opacity:.5; user-select:none; pointer-events:none;
+    animation:sway 7s ease-in-out infinite;
+  }
+  .hero .field-emoji.e1{ left:6%;  top:18%; }
+  .hero .field-emoji.e2{ right:8%; top:26%; animation-delay:-2s; font-size:2.4rem; }
+  .hero .field-emoji.e3{ left:12%; bottom:12%; animation-delay:-4s; font-size:2.2rem; }
+  .hero .field-emoji.e4{ right:13%; bottom:16%; animation-delay:-5.5s; font-size:2.8rem; }
+  @keyframes sway{ 50%{ transform:translateY(-12px) rotate(6deg); } }
+
+  .badge{
+    display:inline-flex; align-items:center; gap:.5rem;
+    padding:.45rem 1rem; border-radius:999px; margin-bottom:1.3rem;
+    background:#fff; border:1px solid var(--stroke);
+    font-size:.85rem; color:var(--muted); font-weight:600;
+    box-shadow:var(--shadow);
+  }
+  .dot{ width:8px;height:8px;border-radius:50%;background:var(--green);
+        box-shadow:0 0 0 4px rgba(22,163,74,.18); animation:pulse 2.2s infinite; }
+  @keyframes pulse{ 50%{ box-shadow:0 0 0 8px rgba(22,163,74,0); } }
+
+  h1{
+    font-size:clamp(2.4rem,7vw,4.2rem); line-height:1.08; font-weight:800;
+    letter-spacing:-.03em; margin-bottom:1rem; color:var(--green-dark);
+  }
+  h1 .sun{ font-size:.8em; vertical-align:baseline; }
+  .hero p{ color:var(--muted); font-size:clamp(1rem,2.4vw,1.15rem); max-width:44rem; margin-inline:auto; }
+  .hero-actions{ display:flex; flex-wrap:wrap; gap:.75rem; justify-content:center; margin-top:2.2rem; }
+
+  /* ---------- section head ---------- */
+  section{ padding:2.75rem 0 1rem; scroll-margin-top:80px; }
+  .sec-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:1rem; margin-bottom:1.75rem; flex-wrap:wrap; }
+  .sec-head h2{ font-size:clamp(1.5rem,3.5vw,2rem); font-weight:750; letter-spacing:-.02em; display:flex; align-items:center; gap:.65rem; color:var(--ink); }
+  .sec-head p{ color:var(--muted); font-size:.95rem; margin-top:.25rem; }
+  .count{
+    font-size:.78rem; font-weight:700; color:var(--green-dark);
+    padding:.35rem .8rem; border-radius:999px;
+    background:var(--green-light); border:1px solid #bbf7d0; white-space:nowrap;
+  }
+
+  /* ---------- app grid ---------- */
+  .grid{ display:grid; gap:1.15rem; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); }
+
+  .card{
+    --accent:var(--green);
+    position:relative; display:flex; flex-direction:column; gap:.9rem;
+    padding:1.6rem 1.4rem 1.4rem;
+    background:var(--card); border:1px solid var(--stroke);
+    border-top:4px solid var(--accent);
+    border-radius:var(--radius); text-decoration:none; color:inherit;
+    box-shadow:var(--shadow);
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s;
+  }
+  .card:hover{ transform:translateY(-6px); box-shadow:0 22px 45px -18px rgba(28,25,23,.35); }
+  .card:focus-visible{ outline:3px solid var(--accent); outline-offset:3px; }
+
+  .icon-wrap{
+    width:64px; height:64px; flex:0 0 64px; border-radius:18px;
+    display:grid; place-items:center;
+    background:var(--green-light);
+    border:1px solid var(--stroke);
+    transition:transform .25s ease;
+  }
+  .card:hover .icon-wrap{ transform:scale(1.06) rotate(-3deg); }
+  .icon-wrap img{ width:100%; height:100%; object-fit:cover; border-radius:16px; display:block; }
+
+  .card h3{ font-size:1.2rem; font-weight:700; letter-spacing:-.015em; }
+  .card .desc{ color:var(--muted); font-size:.92rem; flex:1; }
+
+  .meta{ display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; font-size:.75rem; }
+  .tag{
+    display:inline-flex; align-items:center; gap:.3rem;
+    padding:.28rem .65rem; border-radius:999px; font-weight:700;
+    background:#f5f5f4; border:1px solid var(--stroke); color:var(--muted);
+  }
+  .tag.ok{ color:var(--green-dark); background:var(--green-light); border-color:#bbf7d0; }
+  .tag.apk{ color:var(--green-dark); background:var(--green-light); border-color:#bbf7d0; }
+
+  .card .go{
+    display:flex; align-items:center; justify-content:space-between; gap:.5rem;
+    min-height:48px; margin-top:.25rem; padding:.65rem 1rem; border-radius:12px;
+    background:var(--accent); color:#fff;
+    font-size:.95rem; font-weight:700;
+    transition:filter .2s, gap .25s;
+  }
+  .card .go:hover{ filter:brightness(.92); gap:.9rem; }
+  .card .go svg{ width:18px; height:18px; flex:0 0 18px; }
+
+  /* app identity colors */
+  .card.broiler{ --accent:var(--broiler); }
+  .card.broiler .icon-wrap{ background:#ffedd5; }
+  .card.layer{ --accent:var(--layer); }
+  .card.layer .icon-wrap{ background:#fef9c3; }
+  .card.quail{ --accent:var(--quail); }
+  .card.quail .icon-wrap{ background:#ccfbf1; }
+  .card.dealer{ --accent:var(--dealer); }
+  .card.dealer .icon-wrap{ background:#dbeafe; }
+  .card.tutor{ --accent:#7c3aed; }
+  .card.tutor .icon-wrap{ background:#ede9fe; }
+  .card.vpn{ --accent:#0f766e; }
+  .card.vpn .icon-wrap{ background:#ccfbf1; }
+
+  /* ---------- footer ---------- */
+  footer{
+    margin-top:4rem; padding:2rem 0 2.5rem; text-align:center;
+    border-top:1px solid var(--stroke); color:var(--muted); font-size:.9rem;
+    background:#f5f5f4;
+  }
+  footer b{ color:var(--green-dark); font-weight:700; }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{ opacity:0; transform:translateY(22px); transition:opacity .6s ease, transform .6s cubic-bezier(.22,1,.36,1); }
+  .reveal.in{ opacity:1; transform:none; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:640px){
+    .hero{ padding:3rem 0 2.2rem; }
+    .hero .field-emoji{ font-size:2rem; }
+    .nav-links a:not(.keep){ display:none; }
+    .grid{ grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:.9rem; }
+    .card{ padding:1.25rem 1.1rem 1.1rem; }
+    .icon-wrap{ width:52px;height:52px;flex:0 0 52px;border-radius:14px; }
+    .icon-wrap img{ border-radius:12px; }
+    .card h3{ font-size:1.05rem; }
+    .card .desc{ font-size:.85rem; }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{ animation:none !important; transition-duration:.01ms !important; }
+    html{ scroll-behavior:auto; }
+    .reveal{ opacity:1; transform:none; }
+    .hero .field-emoji{ display:none; }
+  }
+</style>
 </head>
-<body><main>
-  <span class="eyebrow">Farm management</span><h1>Thunn Wathan Lin Farm</h1><p class="lead">ဝင်လိုသော စာမျက်နှာကို ရွေးပါ</p>
-  <section class="grid" aria-label="Farm pages">
-    <a class="card" href="./Broiler.html"><div class="icon">🐔</div><h2>Broiler Farm</h2><p>အသားစားကြက် မွေးမြူရေး</p><span class="btn">ဝင်ရန်</span></a>
-    <a class="card" href="./Layer.html"><div class="icon">🥚</div><h2>Layer Farm</h2><p>ဥစားကြက် မွေးမြူရေး</p><span class="btn">ဝင်ရန်</span></a>
-    <a class="card" href="./Quail.html"><div class="icon">🐦</div><h2>Quail Farm</h2><p>ငုံး မွေးမြူရေး</p><span class="btn">ဝင်ရန်</span></a>
-    <a class="card" href="./Dealer.html"><div class="icon">🚚</div><h2>Dealer</h2><p>အရောင်း/ဖြန့်ချိရေး</p><span class="btn">ဝင်ရန်</span></a>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="/">
+      <span class="brand-mark">🌾</span>
+      <span class="brand-text"><b>Thunn Wathan Lin</b><small>Poultry farming suite</small></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#apps">Web Apps</a>
+      <a href="#downloads">Downloads</a>
+      <a class="btn btn-primary keep" href="#downloads" style="padding:.5rem 1.05rem;font-size:.9rem;min-height:48px">Get the Apps</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero reveal">
+    <span class="field-emoji e1" aria-hidden="true">🐔</span>
+    <span class="field-emoji e2" aria-hidden="true">🥚</span>
+    <span class="field-emoji e3" aria-hidden="true">🌾</span>
+    <span class="field-emoji e4" aria-hidden="true">🐦</span>
+    <span class="badge"><span class="dot"></span> All systems online</span>
+    <h1><span class="sun">🌱</span> Thunn Wathan Lin</h1>
+    <p>Poultry farming records, made simple. Pick a category to open the web app, or download the Android app to keep your records on the go.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#apps">Browse Web Apps</a>
+      <a class="btn btn-ghost" href="#downloads">Download APK</a>
+    </div>
+  </div>
+
+  <!-- ===================== WEB APPS ===================== -->
+  <section id="apps">
+    <div class="sec-head reveal">
+      <div>
+        <h2>🌐 Web Apps</h2>
+        <p>Works in any browser — no install needed.</p>
+      </div>
+      <span class="count">4 apps</span>
+    </div>
+
+    <div class="grid">
+      <a class="card broiler reveal" href="/broiler">
+        <div class="icon-wrap"><img src="/img/broiler.png" alt="Broiler Farm app icon" width="256" height="256" loading="lazy" decoding="async"></div>
+        <h3>Broiler</h3>
+        <p class="desc">Broiler chicken farming records — batches, feed, weight and health tracking.</p>
+        <div class="meta"><span class="tag ok">● Live</span><span class="tag">Web app</span></div>
+        <span class="go">Open App <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="card layer reveal" href="/layer">
+        <div class="icon-wrap"><img src="/img/layer.png" alt="Layer Farm app icon" width="256" height="256" loading="lazy" decoding="async"></div>
+        <h3>Layer</h3>
+        <p class="desc">Layer hen egg farm management — daily egg counts, feed and flock health.</p>
+        <div class="meta"><span class="tag ok">● Live</span><span class="tag">Web app</span></div>
+        <span class="go">Open App <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="card quail reveal" href="/quail">
+        <div class="icon-wrap"><img src="/img/quail.png" alt="Quail Farm app icon" width="256" height="256" loading="lazy" decoding="async"></div>
+        <h3>Quail</h3>
+        <p class="desc">Quail farming records — egg collection, incubation and daily production logs.</p>
+        <div class="meta"><span class="tag ok">● Live</span><span class="tag">Web app</span></div>
+        <span class="go">Open App <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+
+      <a class="card dealer reveal" href="/dealer">
+        <div class="icon-wrap"><span style="font-size:1.7rem">🐓</span></div>
+        <h3>Dealer</h3>
+        <p class="desc">Dealer chicken farming information and record keeping for dealers.</p>
+        <div class="meta"><span class="tag ok">● Live</span><span class="tag">Web app</span></div>
+        <span class="go">Open App <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
   </section>
-  <h2 class="section">Android Apps</h2>
-  <section class="downloads" aria-label="APK downloads">
-    <a class="download" href="./apk/broiler-farm.apk" download><span><strong>🐔 Broiler Farm APK</strong><small>အသားစားကြက် app · 30 MB</small></span><span class="btn">Download</span></a>
-    <a class="download" href="./apk/layer-farm.apk" download><span><strong>🥚 Layer Farm APK</strong><small>ဥစားကြက် app · 27 MB</small></span><span class="btn">Download</span></a>
-    <a class="download" href="./apk/quail-farm.apk" download><span><strong>🐦 Quail Farm APK</strong><small>ငုံးမွေးမြူရေး app · 33 MB</small></span><span class="btn">Download</span></a>
-    <a class="download" href="./apk/ksh-vpn.apk" download><span><strong>🔒 KSH VPN APK</strong><small>VPN app · 76 MB</small></span><span class="btn">Download</span></a>
+
+  <!-- ===================== APK DOWNLOADS ===================== -->
+  <section id="downloads">
+    <div class="sec-head reveal">
+      <div>
+        <h2>📱 Android Apps</h2>
+        <p>APK များကို ဒေါင်းလုဒ်လုပ်ပြီး တပ်ဆင် (Install) နိုင်ပါသည်။</p>
+      </div>
+      <span class="count">5 APKs</span>
+    </div>
+
+    <div class="grid">
+      <a class="card layer reveal" href="/apk/layer-farm.apk" download>
+        <div class="icon-wrap"><img src="/img/layer.png" alt="Layer Farm app icon" width="256" height="256" loading="lazy" decoding="async"></div>
+        <h3>Layer Farm</h3>
+        <p class="desc">Layer ကြက်မွေးမြူရေး မှတ်တမ်း App</p>
+        <div class="meta"><span class="tag apk">APK</span><span class="tag">27 MB</span></div>
+        <span class="go">Download <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13M7 11l5 5 5-5M4 21h16"/></svg></span>
+      </a>
+
+      <a class="card broiler reveal" href="/apk/broiler-farm.apk" download>
+        <div class="icon-wrap"><img src="/img/broiler.png" alt="Broiler Farm app icon" width="256" height="256" loading="lazy" decoding="async"></div>
+        <h3>Broiler Farm</h3>
+        <p class="desc">Broiler ကြက်မွေးမြူရေး မှတ်တမ်း App</p>
+        <div class="meta"><span class="tag apk">APK</span><span class="tag">31 MB</span></div>
+        <span class="go">Download <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13M7 11l5 5 5-5M4 21h16"/></svg></span>
+      </a>
+
+      <a class="card quail reveal" href="/apk/quail-farm.apk" download>
+        <div class="icon-wrap"><img src="/img/quail.png" alt="Quail Farm app icon" width="256" height="256" loading="lazy" decoding="async"></div>
+        <h3>Quail Farm</h3>
+        <p class="desc">ငုံးမွေးမြူရေး မှတ်တမ်း App</p>
+        <div class="meta"><span class="tag apk">APK</span><span class="tag">31 MB</span></div>
+        <span class="go">Download <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13M7 11l5 5 5-5M4 21h16"/></svg></span>
+      </a>
+
+      <a class="card tutor reveal" href="/apk/Tutor-v1.3.0.apk" download>
+        <div class="icon-wrap"><span style="font-size:1.7rem">🎓</span></div>
+        <h3>Tutor <span style="color:var(--muted);font-weight:500;font-size:.9rem">v1.3.0</span></h3>
+        <p class="desc">Learning App</p>
+        <div class="meta"><span class="tag apk">APK</span><span class="tag">97 MB</span><span class="tag ok">● Latest</span></div>
+        <span class="go">Download <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13M7 11l5 5 5-5M4 21h16"/></svg></span>
+      </a>
+
+      <a class="card vpn reveal" href="/apk/ksh-vpn.apk" download>
+        <div class="icon-wrap"><img src="/img/ksh-vpn.png" alt="KSH VPN app icon" width="256" height="256" loading="lazy" decoding="async"></div>
+        <h3>KSH VPN</h3>
+        <p class="desc">VPN App</p>
+        <div class="meta"><span class="tag apk">APK</span><span class="tag">77 MB</span></div>
+        <span class="go">Download <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13M7 11l5 5 5-5M4 21h16"/></svg></span>
+      </a>
+    </div>
   </section>
-  <footer>© 2026 Thunn Wathan Lin</footer>
-</main></body></html>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    &copy; <span id="yr">2026</span> <b>Thunn Wathan Lin</b> — All rights reserved.
+  </div>
+</footer>
+
+<script>
+  // year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // reveal on scroll
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+
+  document.querySelectorAll('.reveal').forEach(function (el, i) {
+    el.style.transitionDelay = (i % 4) * 70 + 'ms';
+    io.observe(el);
+  });
+</script>
+</body>
+</html>
