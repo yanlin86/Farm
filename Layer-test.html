@@ -1547,7 +1547,7 @@ button[onclick*="deleteFarm"],button[onclick*="Delete"]{outline:2px solid #fecac
               <th class="px-2 py-2 text-left whitespace-nowrap">နေ့စွဲ</th>
               <th class="px-2 py-2 text-center whitespace-nowrap">အမျိုးအစား</th>
               <th class="px-2 py-2 text-left">အကြောင်းအရာ</th>
-              <th class="px-2 py-2 text-left">အစေးစိတ်</th>
+              <th class="px-2 py-2 text-left">အသေးစိတ်</th>
               <th class="px-2 py-2 text-right whitespace-nowrap">ပမာဏ (ကျပ်)</th>
               <th class="px-2 py-2 text-center no-print">ပြင်/ဖျက်</th>
             </tr>
@@ -8846,7 +8846,7 @@ function renderFinanceRecords(){
 
       <td class="px-2 py-2 font-bold whitespace-nowrap">${it.date}</td>
 
-      <td class="px-2 py-2 text-center whitespace-nowrap"><span class="px-2 py-1 rounded-full text-[11px] font-bold ${it.kind==='income'?'bg-emerald-100  text-emerald-700 ':'bg-amber-100  text-amber-800 '}">${it.kind==='income'?'ဝင်ငွေ':'ကုန်ကျစရစ်ရိတ်'}</span></td>
+      <td class="px-2 py-2 text-center whitespace-nowrap"><span class="px-2 py-1 rounded-full text-[11px] font-bold ${it.kind==='income'?'bg-emerald-100  text-emerald-700 ':'bg-amber-100  text-amber-800 '}">${it.kind==='income'?'ဝင်ငွေ':'ကုန်ကျစ်ရိတ်'}</span></td>
 
       <td class="px-2 py-2 text-left font-bold" style="max-width:320px"><span class="block truncate" title="${(it.title||'').replace(/"/g,'&quot;')}">${it.title}</span></td>
 
