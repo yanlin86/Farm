@@ -1319,7 +1319,7 @@ button[onclick*="deleteFarm"],button[onclick*="Delete"]{outline:2px solid #fecac
       <div class="report-section-bar px-3 py-2.5 flex flex-wrap items-center justify-between gap-2 border-b">
 
         <h2 class="font-bold"><i class="fa-solid fa-coins text-[#fcd34d]"></i> ဝင်ငွေ / ကုန်ကျစရိတ် (လချုပ်)</h2>
-        <button onclick="openFeedAudit()" class="no-print px-3 py-1.5 rounded-xl text-xs font-bold bg-violet-600 hover:bg-violet-700 text-white"><i class="fa-solid fa-magnifying-glass mr-1"></i>နစ်စစ်စာရင်း စစ်ဆေးဆချက်</button>
+        <button onclick="openFeedAudit()" class="no-print px-3 py-1.5 rounded-xl text-xs font-bold bg-violet-600 hover:bg-violet-700 text-white"><i class="fa-solid fa-magnifying-glass mr-1"></i>အစာစာရင်း စစ်ဆေးရန်</button>
 
       </div>
 
@@ -5792,23 +5792,22 @@ function openFeedAudit(){
   var trows=top.map(function(f){ return '<tr class="border-t"><td class="px-2 py-1.5 text-xs">'+f.date+'</td><td class="px-2 py-1.5 text-xs">'+f.name+'</td><td class="px-2 py-1.5 text-center font-bold">'+fmtBag(f.qty)+'</td><td class="px-2 py-1.5 text-right text-xs">'+(+f.amount).toLocaleString()+'</td></tr>'; }).join('');
   var html='<div class="fixed inset-0 z-[9999] flex items-center justify-center p-3" style="background:rgba(0,0,0,.55)">'
     +'<div class="bg-white rounded-2xl max-w-3xl w-full max-h-[92vh] overflow-y-auto p-4">'
-    +'<div class="flex items-center justify-between mb-2"><h3 class="font-bold">f50d နစ်စစ်စာရင်း စစ်ဆေးဆချက် (အရိတ်)</h3><button onclick="closeFeedAudit()" class="w-9 h-9 rounded-lg bg-slate-100 font-bold"> 2715</button></div>'
-    +'<div class="text-xs text-slate-500 mb-3">စုစုပေါးး အဝယ် — လက်ကျန် = အဝယ် (အိတ်) + စုစုပေါးး ကြက်စာတာများ − ဆေ့စဉ်စ်စုစုပေါးး (အိတ်)</div>'
+    +'<div class="flex items-center justify-between mb-2"><h3 class="font-bold">🔍 အစာစာရင်း စစ်ဆေးချက်</h3><button onclick="closeFeedAudit()" class="w-9 h-9 rounded-lg bg-slate-100 font-bold">✕</button></div>'
+    +'<div class="text-xs text-slate-500 mb-3">စုစုပေါင်း အဝယ် (အိတ်) − စုစုပေါင်း အကျွေး (အိတ်) = လက်ကျန် (အစလက်ကျန် 0 မှစ)</div>'
     +'<div class="grid grid-cols-3 gap-2 mb-3 text-center">'
-    +'<div class="rounded-xl bg-emerald-50 p-2"><div class="text-[11px] text-emerald-700 font-bold">စုစုပေါးး အဝယ်</div><div class="font-bold text-emerald-700">'+fmtBag(totIn)+' အိတ်</div></div>'
-    +'<div class="rounded-xl bg-amber-50 p-2"><div class="text-[11px] text-amber-700 font-bold">စုစုပေါးး ကြက်စာများ</div><div class="font-bold text-amber-700">'+fmtBag(totOut)+' အိတ်</div></div>'
+    +'<div class="rounded-xl bg-emerald-50 p-2"><div class="text-[11px] text-emerald-700 font-bold">စုစုပေါင်း အဝယ်</div><div class="font-bold text-emerald-700">'+fmtBag(totIn)+' အိတ်</div></div>'
+    +'<div class="rounded-xl bg-amber-50 p-2"><div class="text-[11px] text-amber-700 font-bold">စုစုပေါင်း အကျွေး</div><div class="font-bold text-amber-700">'+fmtBag(totOut)+' အိတ်</div></div>'
     +'<div class="rounded-xl bg-violet-50 p-2"><div class="text-[11px] text-violet-700 font-bold">လက်ကျန်</div><div class="font-bold text-violet-700">'+fmtBag(bal)+' အိတ်</div></div></div>'
-    +'<h4 class="font-bold text-sm mb-1">လအလိုက် နှင့်ပတ်</h4>'
-    +'<table class="w-full text-sm border rounded-xl overflow-hidden mb-4"><thead class="bg-slate-100 text-xs"><tr><th class="px-2 py-1.5">လ</th><th class="px-2 py-1.5">အဝယ် (အိတ်)</th><th class="px-2 py-1.5">အထွက် (အိတ်)</th><th class="px-2 py-1.5">လကုန်လက်ကျန်</th></tr></thead><tbody>'+mrows+'</tbody></table>'
-    +'<h4 class="font-bold text-sm mb-1 text-red-600">ထပ်မွာထူ့ဖြစ်ပ် ထာမ်များ (ရက်စြဲ + အရေတ်တူ တူချင်ေသဲ)</h4>'
-    + (drows? '<table class="w-full text-sm border rounded-xl overflow-hidden mb-4"><thead class="bg-red-50 text-xs"><tr><th class="px-2 py-1.5 text-left">နေ့စြဲ</th><th class="px-2 py-1.5 text-left">အမည်</th><th class="px-2 py-1.5">အရေတ် (အိတ်)</th><th class="px-2 py-1.5 text-right">သင့်ငွေ (ကျပ်)</th></tr></thead><tbody>'+drows+'</tbody></table>' : '<div class="text-xs text-slate-400 mb-4">ထပ်မွာထူ့ဖြစ် မတွဲပဲ</div>')
-    +'<h4 class="font-bold text-sm mb-1">အဝယ်များ အကြီးဆဲး (Top 15)</h4>'
-    +'<table class="w-full text-sm border rounded-xl overflow-hidden"><thead class="bg-slate-100 text-xs"><tr><th class="px-2 py-1.5 text-left">နေ့စြဲ</th><th class="px-2 py-1.5 text-left">အမည်</th><th class="px-2 py-1.5">အရေတ် (အိတ်)</th><th class="px-2 py-1.5 text-right">သင့်ငွေ (ကျပ်)</th></tr></thead><tbody>'+trows+'</tbody></table>'
+    +'<h4 class="font-bold text-sm mb-1">လအလိုက်</h4>'
+    +'<table class="w-full text-sm border rounded-xl overflow-hidden mb-4"><thead class="bg-slate-100 text-xs"><tr><th class="px-2 py-1.5">လ</th><th class="px-2 py-1.5">အဝယ် (အိတ်)</th><th class="px-2 py-1.5">အကျွေး (အိတ်)</th><th class="px-2 py-1.5">လကုန်လက်ကျန်</th></tr></thead><tbody>'+mrows+'</tbody></table>'
+    +'<h4 class="font-bold text-sm mb-1 text-red-600">သံသယဖြစ်ဖွယ် (ရက်စွဲ+အရေအတွက် တူ)</h4>'
+    + (drows? '<table class="w-full text-sm border rounded-xl overflow-hidden mb-4"><thead class="bg-red-50 text-xs"><tr><th class="px-2 py-1.5 text-left">နေ့စွဲ</th><th class="px-2 py-1.5 text-left">အမည်</th><th class="px-2 py-1.5">အရေအတွက် (အိတ်)</th><th class="px-2 py-1.5 text-right">သင့်ငွေ (ကျပ်)</th></tr></thead><tbody>'+drows+'</tbody></table>' : '<div class="text-xs text-slate-400 mb-4">ထပ်နေတာမရှိပါ</div>')
+    +'<h4 class="font-bold text-sm mb-1">အဝယ်အကြီးဆုံး 15 ခု</h4>'
+    +'<table class="w-full text-sm border rounded-xl overflow-hidden"><thead class="bg-slate-100 text-xs"><tr><th class="px-2 py-1.5 text-left">နေ့စွဲ</th><th class="px-2 py-1.5 text-left">အမည်</th><th class="px-2 py-1.5">အရေအတွက် (အိတ်)</th><th class="px-2 py-1.5 text-right">သင့်ငွေ (ကျပ်)</th></tr></thead><tbody>'+trows+'</tbody></table>'
     +'</div></div>';
   closeFeedAudit();
   var d=document.createElement('div'); d.id='feedAuditModal'; d.innerHTML=html; document.body.appendChild(d);
 }
-
 
 // ---- feed stock (bags): feed purchases (expenses type 'feed', qty in bags)
 //      vs daily consumption (feed kg / 50). Running balance by date. ----
