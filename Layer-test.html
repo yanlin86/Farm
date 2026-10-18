@@ -1135,11 +1135,11 @@ button[onclick*="deleteFarm"],button[onclick*="Delete"]{outline:2px solid #fecac
 
     </div>
 
-    <div id="selectedFarmBar" class="hidden mt-2 bg-[#ca8a04]  text-white rounded-xl px-3 py-2 flex items-center justify-between gap-2">
+    <div id="selectedFarmBar" class="hidden mt-2 bg-[#ca8a04]  text-[#451a03] rounded-xl px-3 py-2 flex items-center justify-between gap-2">
 
       <div class="flex items-center gap-2 min-w-0">
 
-        <span class="bg-white/20 w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-location-dot text-xs"></i></span>
+        <span class="bg-black/10 w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-location-dot text-xs"></i></span>
 
         <div class="min-w-0">
 
@@ -1149,15 +1149,15 @@ button[onclick*="deleteFarm"],button[onclick*="Delete"]{outline:2px solid #fecac
 
         </div>
 
-        <span id="selFarmAgeBadge" class="hidden sm:inline bg-white text-[#a16207] font-bold text-[11px] px-2 py-0.5 rounded-full whitespace-nowrap"></span>
+        <span id="selFarmAgeBadge" class="hidden sm:inline bg-[#451a03] text-amber-100 font-bold text-[11px] px-2 py-0.5 rounded-full whitespace-nowrap"></span>
 
       </div>
 
       <div class="flex gap-1 flex-shrink-0">
 
-        <button onclick="openFarmModal(selectedFarmId)" class="w-7 h-7 bg-white/20 hover:bg-white/30 rounded-lg flex items-center justify-center" title="ပြင်မည်"><i class="fa-solid fa-pen text-xs"></i></button>
+        <button onclick="openFarmModal(selectedFarmId)" class="w-7 h-7 bg-black/10 hover:bg-black/20 text-[#451a03] rounded-lg flex items-center justify-center" title="ပြင်မည်"><i class="fa-solid fa-pen text-xs"></i></button>
 
-        <button onclick="deleteFarm(selectedFarmId)" class="w-7 h-7 bg-red-500 hover:bg-red-600 rounded-lg flex items-center justify-center" title="ဖျက်မည်"><i class="fa-solid fa-trash text-xs"></i></button>
+        <button onclick="deleteFarm(selectedFarmId)" class="w-7 h-7 bg-black/10 hover:bg-red-500 text-[#451a03] hover:text-white rounded-lg flex items-center justify-center" title="ဖျက်မည်"><i class="fa-solid fa-trash text-xs"></i></button>
 
       </div>
 
@@ -1251,7 +1251,7 @@ button[onclick*="deleteFarm"],button[onclick*="Delete"]{outline:2px solid #fecac
 
         <div class="bg-white  rounded-2xl p-4 border  shadow-sm"><div class="text-xs font-bold text-slate-500 min-h-8"><i class="fa-solid fa-bowl-rice text-[#ca8a04]"></i> ပျမ်းမျှ အစာ/၁ကောင်</div><div id="kpiFeed" class="text-2xl font-bold mt-1">0 <span class="text-sm font-normal text-slate-500">g</span></div><div class="text-[11px] text-slate-400">နောက်ဆုံး ၃၀ ရက်</div></div>
 
-        <div class="bg-white  rounded-2xl p-4 border  shadow-sm"><div class="text-xs font-bold text-slate-500 min-h-8"><i class="fa-solid fa-egg text-teal-500"></i> ဥနှုန်း %</div><div id="kpiHen" class="text-2xl font-bold mt-1">0 <span class="text-sm font-normal text-slate-500">%</span></div><div class="text-[11px] text-slate-400">နောက်ဆုံး ၃၀ ရက်</div></div>
+        <div class="bg-white  rounded-2xl p-4 border  shadow-sm"><div class="text-xs font-bold text-slate-500 min-h-8"><i class="fa-solid fa-egg text-teal-500"></i> ဥနှုန်း</div><div id="kpiHen" class="text-2xl font-bold mt-1">0 <span class="text-sm font-normal text-slate-500">%</span></div><div class="text-[11px] text-slate-400">နောက်ဆုံး ၃၀ ရက်</div></div>
 
         <div class="bg-white  rounded-2xl p-4 border  shadow-sm"><div class="text-xs font-bold text-emerald-600 min-h-8"><i class="fa-solid fa-weight-scale"></i> ၁ဆွဲ(၃၀၀လုံး) ပျမ်းမျှ</div><div id="kpiEggW" class="text-2xl font-bold mt-1">0 <span class="text-sm font-normal text-slate-500">ပိဿာ</span></div><div class="text-[11px] text-slate-400">နောက်ဆုံး ၃၀ ရက် • ၃၀၀လုံး/ဆွဲ</div></div>
 
@@ -5227,7 +5227,7 @@ function renderFarms(){
 
       <div class="flex items-center justify-between gap-2 text-[11px] bg-white/70  rounded-lg px-2 py-1">
 
-        <span class="truncate"><span class="text-slate-400">စထည့်</span> <b>${(f.startDate||'').slice(5)}</b> <span class="text-[#a16207] ">(${ageText})</span></span>
+        <span class="leading-snug"><span class="text-slate-400">စထည့်</span> <b>${(f.startDate||'').slice(5)}</b> <span class="text-[#a16207] ">(${ageText})</span></span>
 
         <span class="bg-[#fef9c3]  text-[#a16207]  px-2 py-0.5 rounded-full font-bold whitespace-nowrap">${curAge} <span class="opacity-60 font-normal">(${ageDays}ရက်)</span></span>
 
@@ -6390,7 +6390,7 @@ function renderKPIs(){
 
   document.getElementById('kpiTotalEggs').textContent=totalEggs.toLocaleString();
 
-  document.getElementById('kpiViss').textContent=totalViss.toFixed(2)+' ပိဿာ ('+totalKg.toFixed(1)+' kg)';
+  document.getElementById('kpiViss').innerHTML=(totalViss>0? totalViss.toFixed(2)+' ပိဿာ ('+totalKg.toFixed(1)+' kg)' : '<span class="text-slate-400">-</span>');
 
 }
 
@@ -6774,6 +6774,11 @@ function renderChart(){
 
   if(chart) chart.destroy();
 
+  // trim trailing days with no data — avoids 2/3 empty chart and end-of-line plunge artifacts
+  let lastIdx=-1;
+  for(let i=labels.length-1;i>=0;i--){ if(henData[i]!==null||trayData[i]!==null){ lastIdx=i; break; } }
+  if(lastIdx>=0){ labels=labels.slice(0,lastIdx+1); henData=henData.slice(0,lastIdx+1); trayData=trayData.slice(0,lastIdx+1); }
+
   // if no data at all, still show empty
 
   chart=new Chart(ctx,{
@@ -6786,9 +6791,9 @@ function renderChart(){
 
       datasets:[
 
-        {label:'ဥနှုန်း %', data:henData, yAxisID:'y', borderColor:'#ca8a04', backgroundColor:'rgba(71,90,215,0.10)', borderWidth:2.5, tension:0.35, pointRadius: henData.filter(v=>v!==null).length>25?0:3, pointBackgroundColor:'#ca8a04', spanGaps:true, fill:false},
+        {label:'ဥနှုန်း %', data:henData, yAxisID:'y', borderColor:'#ca8a04', backgroundColor:'rgba(71,90,215,0.10)', borderWidth:2.5, tension:0.35, pointRadius: henData.filter(v=>v!==null).length>25?0:3, pointBackgroundColor:'#ca8a04', spanGaps:false, fill:false},
 
-        {label:'၁ဆွဲ(၃၀၀) ပိဿာ', data:trayData, yAxisID:'y1', borderColor:'#10b981', backgroundColor:'rgba(16,185,129,0.08)', borderWidth:2.5, tension:0.35, pointRadius: trayData.filter(v=>v!==null).length>25?0:3, pointBackgroundColor:'#10b981', spanGaps:true, fill:false}
+        {label:'၁ဆွဲ(၃၀၀) ပိဿာ', data:trayData, yAxisID:'y1', borderColor:'#10b981', backgroundColor:'rgba(16,185,129,0.08)', borderWidth:2.5, tension:0.35, pointRadius: trayData.filter(v=>v!==null).length>25?0:3, pointBackgroundColor:'#10b981', spanGaps:false, fill:false}
 
       ]
 
