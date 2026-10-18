@@ -383,7 +383,7 @@ tailwind.config={
   .data-grid tr{ display:table-row !important; margin:0 !important; padding:0 !important; background:none !important; border:0 !important; border-radius:0 !important; overflow:visible !important; }
   .data-grid tbody tr:nth-child(even){ background:#f8fafc !important; }
   .data-grid tbody tr:hover{ background:#eff6ff !important; }
-  .data-grid th, .data-grid td{ display:table-cell !important; width:auto !important; text-align:center !important; white-space:nowrap !important; max-width:none !important; padding:7px 10px !important; border-bottom:1px solid #f1f5f9 !important; }
+  .data-grid th, .data-grid td{ display:table-cell !important; width:auto !important; text-align:center !important; white-space:nowrap !important; max-width:none !important; padding:6px 8px !important; border-bottom:1px solid #f1f5f9 !important; }
   .data-grid td[data-label]::before{ content:none !important; }
   .rtable-wrap.data-grid-wrap{ overflow-x:auto !important; }
   .data-grid th, .data-grid td{ font-size:13px !important; }
@@ -885,8 +885,9 @@ tailwind.config={
 
   /* ===== data-grid: spreadsheet-fit tables — columns hug content, no dead space ===== */
   table.rtable.data-grid{ table-layout:auto !important; width:max-content !important; min-width:100%; }
-  .data-grid thead th{ white-space:nowrap !important; padding:8px 12px !important; font-size:13px !important; }
-  .data-grid tbody td, .data-grid tfoot td{ white-space:nowrap !important; padding:7px 12px !important; font-size:14px !important; vertical-align:middle; }
+  .data-grid thead th{ white-space:nowrap !important; padding:7px 8px !important; font-size:13px !important; }
+  .data-grid tbody td, .data-grid tfoot td{ white-space:nowrap !important; padding:6px 8px !important; font-size:14px !important; vertical-align:middle; }
+  .data-grid tbody td > div + div{ font-size:10px !important; line-height:1.3; margin-top:1px; }
   /* sticky date column (spreadsheet feel on horizontal scroll) */
   .data-grid thead th:first-child, .data-grid tbody td:first-child, .data-grid tfoot td:first-child{ position:sticky; left:0; z-index:4; }
   .data-grid thead th:first-child{ background:#fff; }
