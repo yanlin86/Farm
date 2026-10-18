@@ -991,7 +991,7 @@ input,select,textarea{min-height:48px!important;font-size:16px!important}
 /* ---- main section cards: golden top accent ---- */
 #financeSection,#feedshopSection{border-top:3px solid #fcd34d}
 /* ---- tables: scroll wrapper, sticky header, zebra ---- */
-.ly-tablewrap{overflow:auto;max-height:72vh;-webkit-overflow-scrolling:touch;border:1px solid #fde68a;border-radius:14px;background:#fff}
+.ly-tablewrap{overflow-x:auto;overflow-y:visible;-webkit-overflow-scrolling:touch;border:1px solid #fde68a;border-radius:14px;background:#fff}
 .ly-tablewrap table{margin:0}
 .ly-tablewrap thead th{position:sticky;top:0;z-index:5}
 .ly-tablewrap tbody tr:nth-child(even){background:#fffbeb}
@@ -1528,7 +1528,7 @@ button[onclick*="deleteFarm"],button[onclick*="Delete"]{outline:2px solid #fecac
 
           <h3 class="font-bold text-sm"><i class="fa-solid fa-list-ul text-emerald-600"></i> ထည့်ထားသော စာရင်းမှတ်တမ်းများ <span id="financeRecCount" class="text-xs font-normal text-slate-400"></span></h3>
 
-          <select id="finTypeFilter" onchange="renderFinanceRecords()" class="border    rounded-lg px-2 py-1.5 text-xs font-bold">
+          <select id="finTypeFilter" onchange="finRecPage=1;renderFinanceRecords()" class="border    rounded-lg px-2 py-1.5 text-xs font-bold">
 
             <option value="all">အားလုံး</option>
 
@@ -1538,10 +1538,22 @@ button[onclick*="deleteFarm"],button[onclick*="Delete"]{outline:2px solid #fecac
 
           </select>
 
+          <select id="finRecPerPage" onchange="changeFinRecPerPage()" class="border    rounded-lg px-2 py-1.5 text-xs font-bold">
+
+            <option value="25">25</option>
+
+            <option value="50" selected>50</option>
+
+            <option value="100">100</option>
+
+            <option value="200">200</option>
+
+          </select>
+
         </div>
 
         <div class="rtable-wrap data-grid-wrap">
-        <div class="ly-tablewrap" style="max-height:460px"><table class="text-sm rtable data-grid">
+        <div class="ly-tablewrap"><table class="text-sm rtable data-grid">
           <thead class="bg-emerald-50  text-emerald-800  text-xs">
             <tr>
               <th class="px-2 py-2 text-left whitespace-nowrap">နေ့စွဲ</th>
@@ -1554,6 +1566,14 @@ button[onclick*="deleteFarm"],button[onclick*="Delete"]{outline:2px solid #fecac
           </thead>
           <tbody id="financeRecordsBody" class="divide-y "></tbody>
         </table></div>
+      </div>
+
+      <div class="px-3 py-2 flex items-center justify-between gap-2 no-print">
+
+        <div class="flex items-center gap-1" id="finRecPagination"></div>
+
+        <div class="text-xs text-slate-500 " id="finRecPageInfo"></div>
+
       </div>
 
       </div>
@@ -4738,6 +4758,8 @@ let eAmountManual = false;
 // pagination state
 
 let dailyPage = 1;
+let finRecPage = 1;
+let finRecPerPage = 50;
 
 let dailyPerPage = parseInt(localStorage.getItem('layer_dailyPerPage_v4')||'30') || 30;
 
@@ -8825,6 +8847,9 @@ function avgTrayVissFor(fid, dateStr){
 
 })();
 
+function goFinRecPage(p){ finRecPage=p; renderFinanceRecords(); }
+function changeFinRecPerPage(){ finRecPerPage=parseInt(document.getElementById('finRecPerPage').value)||50; finRecPage=1; renderFinanceRecords(); }
+
 function renderFinanceRecords(){
 
   let wrap=document.getElementById('financeRecordsBody'); if(!wrap) return;
@@ -8839,9 +8864,16 @@ function renderFinanceRecords(){
 
   items.sort((a,b)=>b.date.localeCompare(a.date));
 
+  let finTotal=items.length;
+  let finPages=Math.max(1, Math.ceil(finTotal/finRecPerPage));
+  if(finRecPage>finPages) finRecPage=finPages;
+  if(finRecPage<1) finRecPage=1;
+  let finStart=(finRecPage-1)*finRecPerPage;
+  items=items.slice(finStart, finStart+finRecPerPage);
+
   let cnt=document.getElementById('financeRecCount'); if(cnt) cnt.textContent='('+items.length+' မှတ်တမ်း)';
 
-  if(items.length===0){ wrap.innerHTML='<tr><td colspan="6" class="text-center text-slate-400 text-xs py-6">မှတ်တမ်း မရငိသေးပါ</td></tr>'; return; }
+  if(items.length===0){ wrap.innerHTML='<tr><td colspan="6" class="text-center text-slate-400 text-xs py-6">မှတ်တမ်း မရှိသေးပါ</td></tr>'; let _fp=document.getElementById('finRecPagination'); if(_fp) _fp.innerHTML=''; let _fi=document.getElementById('finRecPageInfo'); if(_fi) _fi.textContent=''; return; }
 
   let html='';
 
@@ -8851,7 +8883,7 @@ function renderFinanceRecords(){
 
       <td class="px-2 py-2 font-bold whitespace-nowrap">${it.date}</td>
 
-      <td class="px-2 py-2 text-center whitespace-nowrap"><span class="px-2 py-1 rounded-full text-[11px] font-bold ${it.kind==='income'?'bg-emerald-100  text-emerald-700 ':'bg-amber-100  text-amber-800 '}">${it.kind==='income'?'ဝင်ငွေ':'ကုန်ကျစ်ရိတ်'}</span></td>
+      <td class="px-2 py-2 text-center whitespace-nowrap"><span class="px-2 py-1 rounded-full text-[11px] font-bold ${it.kind==='income'?'bg-emerald-100  text-emerald-700 ':'bg-amber-100  text-amber-800 '}">${it.kind==='income'?'ဝင်ငွေ':'ကုန်ကျစရိတ်'}</span></td>
 
       <td class="px-2 py-2 text-left font-bold" style="max-width:320px"><span class="block truncate" title="${(it.title||'').replace(/"/g,'&quot;')}">${it.title}</span></td>
 
@@ -8872,6 +8904,11 @@ function renderFinanceRecords(){
   });
 
   wrap.innerHTML=html;
+
+  let finPag=document.getElementById('finRecPagination');
+  if(finPag) finPag.innerHTML=buildPagination(finRecPage, finPages, 'goFinRecPage');
+  let finInfo=document.getElementById('finRecPageInfo');
+  if(finInfo) finInfo.textContent=(finTotal===0?0:finStart+1)+'–'+Math.min(finStart+finRecPerPage, finTotal)+' / '+finTotal;
 
 }
 
