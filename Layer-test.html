@@ -386,6 +386,8 @@ tailwind.config={
   .data-grid th, .data-grid td{ display:table-cell !important; width:auto !important; text-align:center !important; white-space:nowrap !important; max-width:none !important; padding:7px 10px !important; border-bottom:1px solid #f1f5f9 !important; }
   .data-grid td[data-label]::before{ content:none !important; }
   .rtable-wrap.data-grid-wrap{ overflow-x:auto !important; }
+  .data-grid th, .data-grid td{ font-size:13px !important; }
+  #financeSection .rtable-wrap.data-grid-wrap, #weeklySection .rtable-wrap.data-grid-wrap, #feedshopSection .rtable-wrap.data-grid-wrap{ overflow-x:auto !important; }
 
 }
 
@@ -882,9 +884,9 @@ tailwind.config={
   .rtable tr.rtable-foot-row td:last-child{ border-bottom-right-radius:12px }
 
   /* ===== data-grid: spreadsheet-fit tables — columns hug content, no dead space ===== */
-  table.rtable.data-grid{ table-layout:auto; width:max-content; min-width:100%; }
+  table.rtable.data-grid{ table-layout:auto !important; width:max-content !important; min-width:100%; }
   .data-grid thead th{ white-space:nowrap !important; padding:8px 12px !important; font-size:13px !important; }
-  .data-grid tbody td, .data-grid tfoot td{ white-space:nowrap; padding:7px 12px !important; font-size:14px !important; vertical-align:middle; }
+  .data-grid tbody td, .data-grid tfoot td{ white-space:nowrap !important; padding:7px 12px !important; font-size:14px !important; vertical-align:middle; }
   /* sticky date column (spreadsheet feel on horizontal scroll) */
   .data-grid thead th:first-child, .data-grid tbody td:first-child, .data-grid tfoot td:first-child{ position:sticky; left:0; z-index:4; }
   .data-grid thead th:first-child{ background:#fff; }
@@ -1466,9 +1468,9 @@ button[onclick*="deleteFarm"],button[onclick*="Delete"]{outline:2px solid #fecac
 
       <!-- Monthly summary table -->
 
-      <div class="overflow-x-auto rounded-t-2xl rtable-wrap">
+      <div class="overflow-x-auto rounded-t-2xl rtable-wrap data-grid-wrap">
 
-        <div class="ly-tablewrap"><table class="w-full text-sm rtable report-table-compact finance-report-table">
+        <div class="ly-tablewrap"><table class="text-sm rtable data-grid report-table-compact finance-report-table">
 
           <thead class="bg-[#fef9c3]  text-[#a16207]  text-[13px] rounded-t-2xl overflow-hidden">
 
@@ -1538,7 +1540,21 @@ button[onclick*="deleteFarm"],button[onclick*="Delete"]{outline:2px solid #fecac
 
         </div>
 
-        <div id="financeRecords" class="px-3 py-3 space-y-1.5 max-h-[460px] overflow-y-auto"></div>
+        <div class="rtable-wrap data-grid-wrap">
+        <div class="ly-tablewrap" style="max-height:460px"><table class="text-sm rtable data-grid">
+          <thead class="bg-emerald-50  text-emerald-800  text-xs">
+            <tr>
+              <th class="px-2 py-2 text-left whitespace-nowrap">နေ့စွဲ</th>
+              <th class="px-2 py-2 text-center whitespace-nowrap">အမျိုးအစား</th>
+              <th class="px-2 py-2 text-left">အကြောင်းအရာ</th>
+              <th class="px-2 py-2 text-left">အစေးစိတ်</th>
+              <th class="px-2 py-2 text-right whitespace-nowrap">ပမာဏ (ကျပ်)</th>
+              <th class="px-2 py-2 text-center no-print">ပြင်/ဖျက်</th>
+            </tr>
+          </thead>
+          <tbody id="financeRecordsBody" class="divide-y "></tbody>
+        </table></div>
+      </div>
 
       </div>
 
@@ -1604,9 +1620,9 @@ button[onclick*="deleteFarm"],button[onclick*="Delete"]{outline:2px solid #fecac
 
       <!-- Monthly summary -->
 
-      <div class="overflow-x-auto border-y  rounded-t-2xl rtable-wrap">
+      <div class="overflow-x-auto border-y  rounded-t-2xl rtable-wrap data-grid-wrap">
 
-        <div class="ly-tablewrap"><table class="w-full text-sm rtable">
+        <div class="ly-tablewrap"><table class="text-sm rtable data-grid">
 
           <thead class="bg-slate-100  text-slate-700  text-xs rounded-t-2xl overflow-hidden">
 
@@ -1642,9 +1658,9 @@ button[onclick*="deleteFarm"],button[onclick*="Delete"]{outline:2px solid #fecac
 
       <div id="feedshopMonthEmpty" class="text-center py-4 text-slate-400 text-xs hidden">လချုပ် မရှိသေးပါ</div>
 
-      <div class="overflow-x-auto rounded-t-2xl rtable-wrap">
+      <div class="overflow-x-auto rounded-t-2xl rtable-wrap data-grid-wrap">
 
-        <div class="ly-tablewrap"><table class="w-full text-sm rtable">
+        <div class="ly-tablewrap"><table class="text-sm rtable data-grid">
 
           <thead class="bg-slate-100  text-slate-700  text-xs rounded-t-2xl overflow-hidden">
 
@@ -1718,9 +1734,9 @@ button[onclick*="deleteFarm"],button[onclick*="Delete"]{outline:2px solid #fecac
 
       </div>
 
-      <div class="overflow-x-auto rounded-t-2xl rtable-wrap">
+      <div class="overflow-x-auto rounded-t-2xl rtable-wrap data-grid-wrap">
 
-        <div class="ly-tablewrap"><table class="w-full text-sm rtable report-table-compact weekly-report-table">
+        <div class="ly-tablewrap"><table class="text-sm rtable data-grid report-table-compact weekly-report-table">
 
           <thead class="bg-slate-100  text-slate-600  text-xs">
 
@@ -7656,7 +7672,7 @@ function renderFeedshop(){
 
           <td data-label="စုစုပေါင်း လက်ကျန်" class="px-2 py-2.5 text-center text-xs font-bold ${runCls}">${r.running>0?'+':''}${r.running.toLocaleString()}</td>
 
-          <td data-label="" class="px-2 py-2.5 text-center no-print"><button onclick="event.stopPropagation();openFeedshopMonthModal('${r.mk}'.replace('${r.mk}','${r.mk}'))" class="w-9 h-9 md:w-7 md:h-7 rounded-lg bg-teal-50  text-teal-600  hover:bg-teal-100"><i class="fa-solid fa-magnifying-glass text-[11px]"></i></button></td>
+          <td data-label="" class="px-2 py-2.5 text-center no-print"><button onclick="event.stopPropagation();openFeedshopMonthModal('${r.mk}'.replace('${r.mk}','${r.mk}'))" class="rowbtn bg-teal-50  text-teal-600  hover:bg-teal-100"><i class="fa-solid fa-magnifying-glass"></i></button></td>
 
         `;
 
@@ -8240,7 +8256,7 @@ function renderFinance(){
 
       <td data-label="အမြတ်" class="px-2 py-2.5 text-center font-bold ${profit>=0?'text-emerald-600 ':'text-red-600 '}">${profit.toLocaleString()}</td>
 
-      <td data-label="" class="px-2 py-2.5 text-center no-print"><button onclick="event.stopPropagation();openMonthModal('${mk}')" class="w-9 h-9 md:w-7 md:h-7 rounded-lg bg-emerald-50  text-emerald-600  hover:bg-emerald-100"><i class="fa-solid fa-magnifying-glass text-[11px]"></i></button></td>
+      <td data-label="" class="px-2 py-2.5 text-center no-print"><button onclick="event.stopPropagation();openMonthModal('${mk}')" class="rowbtn bg-emerald-50  text-emerald-600  hover:bg-emerald-100"><i class="fa-solid fa-magnifying-glass"></i></button></td>
 
     `;
 
@@ -8370,7 +8386,7 @@ function openMonthModal(mk){
 
         <span class="text-xs font-bold ${it.kind==='income'?'text-emerald-700 ':'text-[#a16207] '}">${it.kind==='income'?'+':'−'}${it.amount.toLocaleString()}</span>
 
-        <button onclick="closeMonthModal();${it.kind==='income'?"editSale":"editExpense"}('${it.id}')" class="w-6 h-6 rounded-lg bg-blue-50  text-blue-500 hover:bg-blue-100 flex items-center justify-center" title="ပြင်ရန်"><i class="fa-solid fa-pen text-[10px]"></i></button><button onclick="${it.kind==='income'?"deleteSale":"deleteExpense"}('${it.id}')" class="w-6 h-6 rounded-lg bg-red-50  text-red-500 hover:bg-red-100 flex items-center justify-center"><i class="fa-solid fa-trash text-[10px]"></i></button>
+        <button onclick="closeMonthModal();${it.kind==='income'?"editSale":"editExpense"}('${it.id}')" class="rowbtn bg-blue-50  text-blue-500 hover:bg-blue-100" title="ပြင်ရန်"><i class="fa-solid fa-pen"></i></button><button onclick="${it.kind==='income'?"deleteSale":"deleteExpense"}('${it.id}')" class="rowbtn bg-red-50  text-red-500 hover:bg-red-100"><i class="fa-solid fa-trash"></i></button>
 
       </div>
 
@@ -8484,9 +8500,9 @@ function openFeedshopMonthModal(mk){
 
         <span class="text-xs font-bold ${amtCls}">${sign}${it.amount.toLocaleString()}</span>
 
-        <button onclick="closeFeedshopMonthModal();${isSale?'editSale':isExp?'editExpense':'editFeedshop'}('${it.id}')" class="w-6 h-6 rounded-lg bg-blue-50  text-blue-500 hover:bg-blue-100 flex items-center justify-center" title="ပြင်ရန်"><i class="fa-solid fa-pen text-[10px]"></i></button>
+        <button onclick="closeFeedshopMonthModal();${isSale?'editSale':isExp?'editExpense':'editFeedshop'}('${it.id}')" class="rowbtn bg-blue-50  text-blue-500 hover:bg-blue-100" title="ပြင်ရန်"><i class="fa-solid fa-pen"></i></button>
 
-        <button onclick="${isSale?'deleteSale':isExp?'deleteExpense':'deleteFeedshop'}('${it.id}')" class="w-6 h-6 rounded-lg bg-red-50  text-red-500 hover:bg-red-100 flex items-center justify-center"><i class="fa-solid fa-trash text-[10px]"></i></button>
+        <button onclick="${isSale?'deleteSale':isExp?'deleteExpense':'deleteFeedshop'}('${it.id}')" class="rowbtn bg-red-50  text-red-500 hover:bg-red-100"><i class="fa-solid fa-trash"></i></button>
 
       </div>
 
@@ -8672,15 +8688,15 @@ function renderFeedShop(){
 
     if(e.kind==='deposit' || e.kind==='withdraw' || e.kind==='note'){
 
-      editBtn='<button onclick="editFeedShopTrans(\''+e.id+'\')" class="w-6 h-6 rounded-lg bg-blue-50  text-blue-500 hover:bg-blue-100 flex items-center justify-center"><i class="fa-solid fa-pen text-[10px]"></i></button><button onclick="deleteFeedShopTrans(\''+e.id+'\')" class="w-6 h-6 rounded-lg bg-red-50  text-red-500 hover:bg-red-100 flex items-center justify-center"><i class="fa-solid fa-trash text-[10px]"></i></button>';
+      editBtn='<button onclick="editFeedShopTrans(\''+e.id+'\')" class="rowbtn bg-blue-50  text-blue-500 hover:bg-blue-100"><i class="fa-solid fa-pen"></i></button><button onclick="deleteFeedShopTrans(\''+e.id+'\')" class="rowbtn bg-red-50  text-red-500 hover:bg-red-100"><i class="fa-solid fa-trash"></i></button>';
 
     } else if(e.kind==='income'){
 
-      editBtn='<button onclick="editSale(\''+e.id+'\')" class="w-6 h-6 rounded-lg bg-blue-50  text-blue-500 hover:bg-blue-100 flex items-center justify-center"><i class="fa-solid fa-pen text-[10px]"></i></button>';
+      editBtn='<button onclick="editSale(\''+e.id+'\')" class="rowbtn bg-blue-50  text-blue-500 hover:bg-blue-100"><i class="fa-solid fa-pen"></i></button>';
 
     } else if(e.kind==='expense'){
 
-      editBtn='<button onclick="editExpense(\''+e.id+'\')" class="w-6 h-6 rounded-lg bg-blue-50  text-blue-500 hover:bg-blue-100 flex items-center justify-center"><i class="fa-solid fa-pen text-[10px]"></i></button>';
+      editBtn='<button onclick="editExpense(\''+e.id+'\')" class="rowbtn bg-blue-50  text-blue-500 hover:bg-blue-100"><i class="fa-solid fa-pen"></i></button>';
 
     }
 
@@ -8806,13 +8822,13 @@ function avgTrayVissFor(fid, dateStr){
 
 function renderFinanceRecords(){
 
-  let wrap=document.getElementById('financeRecords'); if(!wrap) return;
+  let wrap=document.getElementById('financeRecordsBody'); if(!wrap) return;
 
   let flt=document.getElementById('finTypeFilter')? document.getElementById('finTypeFilter').value:'all';
 
   let items=[];
 
-  if(flt!=='expense') getCurrentSales().forEach(s=>items.push({kind:'income', id:s.id, date:s.date, title:'ဥအရောင်း — '+(s.desc||''), sub:[s.buyer? 'ဝယ်သူ- '+s.buyer:'', (+s.viss>0? fmtN(s.viss,2)+'ပိဿာ':''), (+s.price>0? fmtN(s.price,0)+' ကျပ်/ပိဿာ':'')].filter(Boolean).join(' • '), amount:+s.amount||0}));
+  if(flt!=='expense') getCurrentSales().forEach(s=>items.push({kind:'income', id:s.id, date:s.date, title:'ဥအရောင်း — '+(s.desc||''), sub:[s.buyer? 'ဝယ်သူ- '+s.buyer:'', (+s.viss>0? fmtN(s.viss,2)+'ပိသ်ာ':'') , (+s.price>0? fmtN(s.price,0)+' ကျပ်/ပိသ်ာ':'')].filter(Boolean).join(' • '), amount:+s.amount||0}));
 
   if(flt!=='income') getCurrentExpenses().forEach(x=>items.push({kind:'expense', id:x.id, date:x.date, title:(EXPENSE_LABEL[x.type]||x.type)+(x.name? ' — '+x.name:''), sub:[(x.qty>0&&x.price>0)? fmtN(x.qty,2)+' × '+fmtN(x.price,0):'', x.note||''].filter(Boolean).join(' • '), amount:+x.amount||0}));
 
@@ -8820,33 +8836,33 @@ function renderFinanceRecords(){
 
   let cnt=document.getElementById('financeRecCount'); if(cnt) cnt.textContent='('+items.length+' မှတ်တမ်း)';
 
-  if(items.length===0){ wrap.innerHTML='<div class="text-center text-slate-400 text-xs py-6">မှတ်တမ်း မရှိသေးပါ</div>'; return; }
+  if(items.length===0){ wrap.innerHTML='<tr><td colspan="6" class="text-center text-slate-400 text-xs py-6">မှတ်တမ်း မရငိသေးပါ</td></tr>'; return; }
 
   let html='';
 
   items.forEach(it=>{
 
-    html+=`<div class="flex items-center justify-between gap-2 px-3 py-2 rounded-xl ${it.kind==='income'?'bg-emerald-50 ':'bg-[#fefce8] '}">
+    html+=`<tr class="hover:bg-[#fefce8]/60 ">
 
-      <div class="min-w-0">
+      <td class="px-2 py-2 font-bold whitespace-nowrap">${it.date}</td>
 
-        <div class="text-[13px] font-bold truncate ">${it.date} • ${it.title}</div>
+      <td class="px-2 py-2 text-center whitespace-nowrap"><span class="px-2 py-1 rounded-full text-[11px] font-bold ${it.kind==='income'?'bg-emerald-100  text-emerald-700 ':'bg-amber-100  text-amber-800 '}">${it.kind==='income'?'ဝင်ငွေ':'ကုန်ကျစရစ်ရိတ်'}</span></td>
 
-        ${it.sub? `<div class="text-[11px] text-slate-500  truncate">${it.sub}</div>`:''}
+      <td class="px-2 py-2 text-left font-bold" style="max-width:320px"><span class="block truncate" title="${(it.title||'').replace(/"/g,'&quot;')}">${it.title}</span></td>
 
-      </div>
+      <td class="px-2 py-2 text-left text-slate-500 " style="max-width:280px"><span class="block truncate" title="${(it.sub||'').replace(/"/g,'&quot;')}">${it.sub||'-'}</span></td>
 
-      <div class="flex items-center gap-1 flex-shrink-0">
+      <td class="px-2 py-2 text-right font-bold whitespace-nowrap ${it.kind==='income'?'text-emerald-700 ':'text-[#a16207] '}">${it.kind==='income'?'+':'−'}${it.amount.toLocaleString()}</td>
 
-        <span class="text-[13px] font-bold ${it.kind==='income'?'text-emerald-700 ':'text-[#a16207] '}">${it.kind==='income'?'+':'−'}${it.amount.toLocaleString()}</span>
+      <td class="px-2 py-2 text-center no-print whitespace-nowrap">
 
-        <button onclick="${it.kind==='income'?"editSale":"editExpense"}('${it.id}')" title="ပြင်ရန်" class="w-6 h-6 rounded-lg bg-blue-50  text-blue-500 hover:bg-blue-100 flex items-center justify-center"><i class="fa-solid fa-pen text-[10px]"></i></button>
+        <button onclick="${it.kind==='income'?"editSale":"editExpense"}('${it.id}')" title="ပြင်ရန်" class="rowbtn bg-blue-50  text-blue-500 hover:bg-blue-100 mr-1"><i class="fa-solid fa-pen"></i></button>
 
-        <button onclick="${it.kind==='income'?"deleteSale":"deleteExpense"}('${it.id}')" title="ဖျက်ရန်" class="w-6 h-6 rounded-lg bg-red-50  text-red-500 hover:bg-red-100 flex items-center justify-center"><i class="fa-solid fa-trash text-[10px]"></i></button>
+        <button onclick="${it.kind==='income'?"deleteSale":"deleteExpense"}('${it.id}')" title="ဖျက်ရန်" class="rowbtn bg-red-50  text-red-500 hover:bg-red-100"><i class="fa-solid fa-trash"></i></button>
 
-      </div>
+      </td>
 
-    </div>`;
+    </tr>`;
 
   });
 
