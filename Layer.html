@@ -1817,6 +1817,7 @@ button[onclick*="deleteFarm"],button[onclick*="Delete"]{outline:2px solid #fecac
               <th class="px-2 py-2 text-center ">အစာ(kg)</th>
 
               <th class="px-2 py-2 text-center ">၁ကောင်အစာ(g)</th>
+              <th class="px-2 py-2 text-center ">အစာလက်ကျန်<br><span class="font-normal opacity-60 text-[10px]">(အိတ်)</span></th>
 
               <th class="px-2 py-2 text-center ">ဥ(လုံး)<br><span class="font-normal opacity-70 text-[10px]">အကောင်း+ပယ်</span></th>
 
@@ -2370,7 +2371,7 @@ button[onclick*="deleteFarm"],button[onclick*="Delete"]{outline:2px solid #fecac
 
             <label data-i18n="အမျိုးအစား *" class="text-xs font-bold text-slate-600  h-4">အမျိုးအစား *</label>
 
-            <select id="e_type" required class="mt-1 w-full h-[42px] border    rounded-xl px-3 text-sm focus:ring-2 focus:ring-red-500 outline-none">
+            <select id="e_type" required onchange="updateExpQtyLabel()" class="mt-1 w-full h-[42px] border    rounded-xl px-3 text-sm focus:ring-2 focus:ring-red-500 outline-none">
 
               <option value="feed">ကြက်စာ</option>
 
@@ -2402,7 +2403,7 @@ button[onclick*="deleteFarm"],button[onclick*="Delete"]{outline:2px solid #fecac
 
           <div class="flex flex-col">
 
-            <label data-i18n="အရေအတွက်" class="text-xs font-bold text-slate-600  h-4">အရေအတွက်</label>
+            <label id="e_qtyLabel" data-i18n="အရေအတွက်" class="text-xs font-bold text-slate-600  h-4">အရေအတွက်</label>
 
             <input id="e_qty" type="number" step="0.01" min="0" placeholder="20" oninput="expAutoAmount()" class="mt-1 w-full h-[42px] border    rounded-xl px-3 text-sm focus:ring-2 focus:ring-red-500 outline-none">
 
@@ -3601,6 +3602,10 @@ const translations={
     "၁ကောင်အစာ(g)":"Feed/Bird (g)",
 
     "၁ဆွဲ(၃၀၀) ပိဿာ":"Tray (300) viss",
+
+    "အစာလက်ကျန်":"Feed stock",
+    "(အိတ်)":"(bags)",
+    "အရေအတွက် (အိတ်)":"Quantity (bags)",
 
     "ကြက်အမျိုးအစား * <span class=\"font-normal text-slate-400\">— စာရိုက်ထည့်ပါ</span>":"Breed / Strain * <span class=\"font-normal text-slate-400\">— Type to enter</span>"
 
@@ -5766,6 +5771,36 @@ function buildPagination(current, total, onClickFn){
 
 
 
+// ---- feed stock (bags): feed purchases (expenses type 'feed', qty in bags)
+//      vs daily consumption (feed kg / 50). Running balance by date. ----
+function getFeedStockByDate(){
+  let computed=getComputed();
+  let exps=getCurrentExpenses();
+  let purch={};
+  exps.forEach(x=>{
+    if(x.type==='feed' && x.date){
+      let q=parseFloat(x.qty)||0;
+      if(q>0) purch[x.date]=(purch[x.date]||0)+q;
+    }
+  });
+  let cons={};
+  computed.forEach(r=>{
+    if(!r.date) return;
+    let b=(parseFloat(r.feed)||0)/50;
+    if(b>0) cons[r.date]=(cons[r.date]||0)+b;
+  });
+  let dates=[...new Set([...Object.keys(purch),...Object.keys(cons)])].sort();
+  let bal=0, out={};
+  dates.forEach(d=>{
+    bal=bal+(purch[d]||0)-(cons[d]||0);
+    out[d]={inBags:purch[d]||0, balance:bal};
+  });
+  return out;
+}
+function fmtBag(b){ return (+(+b).toFixed(1)).toString(); }
+
+
+
 function renderTable(){
 
   let f=farms.find(x=>x.id===selectedFarmId);
@@ -5773,6 +5808,8 @@ function renderTable(){
   if(!f) return;
 
   let computed=getComputed();
+
+  let feedStock=getFeedStockByDate();
 
   let filter=getDateValue('searchDate');
 
@@ -5829,6 +5866,7 @@ function renderTable(){
     empty.classList.add('hidden');
 
     for(let r of pageRows){
+      let st=feedStock[r.date]||{inBags:0,balance:0};
 
       let tr=document.createElement('tr');
 
@@ -5847,6 +5885,7 @@ function renderTable(){
         <td data-label="အစာ(kg)" class="px-2 py-2.5 text-center bg-[#fefce8] "><div class="font-bold">${r.feed.toFixed(2)}</div><div class="text-[10px] text-slate-400">${(r.feed/50).toFixed(2).replace(/\.00$/,'')}အိတ်</div></td>
 
         <td data-label="၁ကောင်အစာ(g)" class="px-2 py-2.5 text-center bg-[#fefce8]  font-bold text-[#a16207] ">${r.feedPerBird.toFixed(1)}</td>
+        <td data-label="အစာလက်ကျန်(အိတ်)" class="px-2 py-2.5 text-center bg-amber-50 "><div class="font-bold ${st.balance<0?'text-red-600':''}">${fmtBag(st.balance)}</div>${st.inBags>0?'<div class="text-[10px] text-emerald-600 font-bold">အဝင် '+fmtBag(st.inBags)+'</div>':''}</td>
 
         <td data-label="ဥ(လုံး)" class="px-2 py-2.5 text-center bg-teal-50  font-bold"><div>${r.eggs.toLocaleString()}</div>${(r.eggsBad>0? '<div class="text-[10px] font-normal text-slate-500 leading-none">'+(r.eggsGood||0).toLocaleString()+' + '+r.eggsBad.toLocaleString()+' ပယ်</div>' : '')}</td>
 
@@ -5901,6 +5940,7 @@ function renderTable(){
       <td data-label="အစာ(kg)" class="px-2 py-2 text-center">${totals.feed.toFixed(2)}</td>
 
       <td data-label="၁ကောင်အစာ(g)" class="px-2 py-2 text-center">${avgFeed.toFixed(1)}</td>
+      <td data-label="အစာလက်ကျန်(အိတ်)" class="px-2 py-2 text-center">-</td>
 
       <td data-label="ဥ(လုံး)" class="px-2 py-2 text-center">${totals.eggs.toLocaleString()}</td>
 
@@ -6728,15 +6768,17 @@ function exportCSV(){
 
   let computed=getComputed();
 
+  let fstock=getFeedStockByDate();
+
   let f=farms.find(x=>x.id===selectedFarmId);
 
   if(!f) return alert('ခြံ ရွေးပါ');
 
   if(computed.length===0) return alert('Export လုပ်ရန် မှတ်တမ်းမရှိပါ');
 
-  let header=['နေ့စွဲ','ကြက်သက်','ကြက်သက်(ရက်)','ကျန်ကြက်','ကြက်သေ','အစာ(kg)','အစာ(အိတ်)','၁ကောင်အစာ(g)','ဥအကောင်း','ဥပယ်','စုစုပေါင်း ဥ','ဥနှုန်း%','ဥဝိတ်(ပိဿာ)','၁ဆွဲ(၃၀၀) ပိဿာ','ဆေး','မှတ်ချက်'];
+  let header=['နေ့စွဲ','ကြက်သက်','ကြက်သက်(ရက်)','ကျန်ကြက်','ကြက်သေ','အစာ(kg)','အစာ(အိတ်)','အစာလက်ကျန်(အိတ်)','အစာအဝင်(အိတ်)','၁ကောင်အစာ(g)','ဥအကောင်း','ဥပယ်','စုစုပေါင်း ဥ','ဥနှုန်း%','ဥဝိတ်(ပိဿာ)','၁ဆွဲ(၃၀၀) ပိဿာ','ဆေး','မှတ်ချက်'];
 
-  let rows=[...computed].sort((a,b)=> b.date.localeCompare(a.date)).map(r=>[r.date, r.ageDisp, r.ageDays, r.live, r.dead, r.feed.toFixed(2), (r.feed/50).toFixed(2), r.feedPerBird.toFixed(1), (r.eggsGood||r.eggs), (r.eggsBad||0), r.eggs, r.henDay.toFixed(2), r.viss.toFixed(2), r.trayViss.toFixed(3), `"${(r.medicine||'').replace(/"/g,'""')}"`, `"${(r.note||'').replace(/"/g,'""')}"`]);
+  let rows=[...computed].sort((a,b)=> b.date.localeCompare(a.date)).map(r=>[r.date, r.ageDisp, r.ageDays, r.live, r.dead, r.feed.toFixed(2), (r.feed/50).toFixed(2), fmtBag(((fstock[r.date]||{}).balance)||0), fmtBag(((fstock[r.date]||{}).inBags)||0), r.feedPerBird.toFixed(1), (r.eggsGood||r.eggs), (r.eggsBad||0), r.eggs, r.henDay.toFixed(2), r.viss.toFixed(2), r.trayViss.toFixed(3), `"${(r.medicine||'').replace(/"/g,'""')}"`, `"${(r.note||'').replace(/"/g,'""')}"`]);
 
   rows.push([]); rows.push(['အပတ်စဥ် အစီရင်ခံစာ (ကြက်သက်ပါတ် အလိုက် - နောက်ဆုံးအပတ်အပေါ်ဆုံး)']); rows.push(['ပါတ်သား','ရက်အပိုင်းအခြား','ရက်ပေါင်း','ပျမ်းမျှကျန်','စုသေ','စုအစာ(kg)','၁ကောင်အစာ(g)','စုဥ','ဥနှုန်း%','စုဥဝိတ်(ပိဿာ)','ပျမ်းမျှ၁ဆွဲ(၃၀၀)ပိဿာ','FCR']);
 
@@ -7006,6 +7048,13 @@ function saleAutoAmount(){
 
 }
 
+function updateExpQtyLabel(){
+  let lbl=document.getElementById('e_qtyLabel');
+  let sel=document.getElementById('e_type');
+  if(!lbl||!sel) return;
+  lbl.textContent=(sel.value==='feed')?'အရေအတွက် (အိတ်)':'အရေအတွက်';
+}
+
 function expAutoAmount(){
 
   eAmountManual=false;
@@ -7204,7 +7253,7 @@ function editExpense(id){
 
   setDateValue('e_date', x.date);
 
-  document.getElementById('e_type').value=x.type||'other';
+  document.getElementById('e_type').value=x.type||'other'; try{updateExpQtyLabel();}catch(e){}
 
   document.getElementById('e_name').value=x.name||'';
 
@@ -7257,6 +7306,7 @@ function cancelExpEdit(){
   setDateValue('e_date', todayStr);
 
   resetExpFormUI();
+  try{updateExpQtyLabel();}catch(e){}
 
 }
 
