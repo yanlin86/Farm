@@ -8871,7 +8871,7 @@ function renderFinanceRecords(){
   let finStart=(finRecPage-1)*finRecPerPage;
   items=items.slice(finStart, finStart+finRecPerPage);
 
-  let cnt=document.getElementById('financeRecCount'); if(cnt) cnt.textContent='('+items.length+' မှတ်တမ်း)';
+  let cnt=document.getElementById('financeRecCount'); if(cnt) cnt.textContent='('+finTotal+' မှတ်တမ်း)';
 
   if(items.length===0){ wrap.innerHTML='<tr><td colspan="6" class="text-center text-slate-400 text-xs py-6">မှတ်တမ်း မရှိသေးပါ</td></tr>'; let _fp=document.getElementById('finRecPagination'); if(_fp) _fp.innerHTML=''; let _fi=document.getElementById('finRecPageInfo'); if(_fi) _fi.textContent=''; return; }
 
