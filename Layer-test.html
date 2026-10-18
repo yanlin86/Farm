@@ -1287,11 +1287,11 @@ button[onclick*="deleteFarm"],button[onclick*="Delete"]{outline:2px solid #fecac
 
               <div id="chartWeeklyControls" class="hidden items-center gap-2">
 
-                <button id="chartWeekPrev" onclick="chartTo(-1)" class="w-8 h-8 border  rounded-lg flex items-center justify-center text-slate-600  hover:bg-slate-100 "><i class="fa-solid fa-chevron-left"></i></button>
+                <button id="chartWeekPrev" onclick="chartTo(-1)" class="w-10 h-10 border  rounded-lg flex items-center justify-center text-slate-600  hover:bg-slate-100 "><i class="fa-solid fa-chevron-left"></i></button>
 
                 <span id="chartWeekLabel" class="text-[11px] bg-slate-100  px-2 py-1 rounded-full font-bold"></span>
 
-                <button id="chartWeekNext" onclick="chartTo(1)" class="w-8 h-8 border  rounded-lg flex items-center justify-center text-slate-600  hover:bg-slate-100 "><i class="fa-solid fa-chevron-right"></i></button>
+                <button id="chartWeekNext" onclick="chartTo(1)" class="w-10 h-10 border  rounded-lg flex items-center justify-center text-slate-600  hover:bg-slate-100 "><i class="fa-solid fa-chevron-right"></i></button>
 
               </div>
 
@@ -5775,7 +5775,7 @@ function buildPagination(current, total, onClickFn){
 
   const maxBtns=5;
 
-  html+=`<button onclick="${onClickFn}(${Math.max(1,current-1)})" ${current===1?'disabled':''} class="w-8 h-8 rounded-full border  flex items-center justify-center ${current===1?'opacity-40 cursor-not-allowed':'hover:bg-slate-100 '}"><i class="fa-solid fa-chevron-left text-xs"></i></button>`;
+  html+=`<button onclick="${onClickFn}(${Math.max(1,current-1)})" ${current===1?'disabled':''} class="w-10 h-10 rounded-full border  flex items-center justify-center ${current===1?'opacity-40 cursor-not-allowed':'hover:bg-slate-100 '}"><i class="fa-solid fa-chevron-left text-xs"></i></button>`;
 
   let start=Math.max(1, current-Math.floor(maxBtns/2));
 
@@ -5785,7 +5785,7 @@ function buildPagination(current, total, onClickFn){
 
   if(start>1){
 
-    html+=`<button onclick="${onClickFn}(1)" class="min-w-8 h-8 px-2 rounded-full border  hover:bg-slate-100  text-xs font-bold">1</button>`;
+    html+=`<button onclick="${onClickFn}(1)" class="min-w-10 h-10 px-2 rounded-full border  hover:bg-slate-100  text-xs font-bold">1</button>`;
 
     if(start>2) html+=`<span class="px-1 text-slate-400">…</span>`;
 
@@ -5793,9 +5793,9 @@ function buildPagination(current, total, onClickFn){
 
   for(let i=start;i<=end;i++){
 
-    if(i===current) html+=`<button class="min-w-8 h-8 px-2 rounded-full bg-[#ca8a04] text-white font-bold text-xs">${i}</button>`;
+    if(i===current) html+=`<button class="min-w-10 h-10 px-2 rounded-full bg-[#ca8a04] text-white font-bold text-xs">${i}</button>`;
 
-    else html+=`<button onclick="${onClickFn}(${i})" class="min-w-8 h-8 px-2 rounded-full border  hover:bg-slate-100  text-xs font-bold">${i}</button>`;
+    else html+=`<button onclick="${onClickFn}(${i})" class="min-w-10 h-10 px-2 rounded-full border  hover:bg-slate-100  text-xs font-bold">${i}</button>`;
 
   }
 
@@ -5803,11 +5803,11 @@ function buildPagination(current, total, onClickFn){
 
     if(end<total-1) html+=`<span class="px-1 text-slate-400">…</span>`;
 
-    html+=`<button onclick="${onClickFn}(${total})" class="min-w-8 h-8 px-2 rounded-full border  hover:bg-slate-100  text-xs font-bold">${total}</button>`;
+    html+=`<button onclick="${onClickFn}(${total})" class="min-w-10 h-10 px-2 rounded-full border  hover:bg-slate-100  text-xs font-bold">${total}</button>`;
 
   }
 
-  html+=`<button onclick="${onClickFn}(${Math.min(total,current+1)})" ${current===total?'disabled':''} class="w-8 h-8 rounded-full border  flex items-center justify-center ${current===total?'opacity-40 cursor-not-allowed':'hover:bg-slate-100 '}"><i class="fa-solid fa-chevron-right text-xs"></i></button>`;
+  html+=`<button onclick="${onClickFn}(${Math.min(total,current+1)})" ${current===total?'disabled':''} class="w-10 h-10 rounded-full border  flex items-center justify-center ${current===total?'opacity-40 cursor-not-allowed':'hover:bg-slate-100 '}"><i class="fa-solid fa-chevron-right text-xs"></i></button>`;
 
   return html;
 
@@ -7845,13 +7845,13 @@ function renderFeedshop(){
 
       <td data-label="ပြင်" class="px-2 py-2.5 text-center no-print">
 
-        ${e.kind==='sale'? `<button onclick="editSale('${e.id}')" class="w-8 h-8 md:w-6 md:h-6 rounded-lg bg-blue-50  text-blue-500"><i class="fa-solid fa-pen text-[10px]"></i></button>` : ''}
+        ${e.kind==='sale'? `<button onclick="editSale('${e.id}')" class="rowbtn bg-blue-50  text-blue-500"><i class="fa-solid fa-pen"></i></button>` : ''}
 
-        ${e.kind==='expense'? `<button onclick="editExpense('${e.id}')" class="w-8 h-8 md:w-6 md:h-6 rounded-lg bg-blue-50  text-blue-500"><i class="fa-solid fa-pen text-[10px]"></i></button>` : ''}
+        ${e.kind==='expense'? `<button onclick="editExpense('${e.id}')" class="rowbtn bg-blue-50  text-blue-500"><i class="fa-solid fa-pen"></i></button>` : ''}
 
-        ${e.kind==='trans'? `<button onclick="editFeedshop('${e.id}')" class="w-8 h-8 md:w-6 md:h-6 rounded-lg bg-blue-50  text-blue-500"><i class="fa-solid fa-pen text-[10px]"></i></button>` : ''}
+        ${e.kind==='trans'? `<button onclick="editFeedshop('${e.id}')" class="rowbtn bg-blue-50  text-blue-500"><i class="fa-solid fa-pen"></i></button>` : ''}
 
-        <button onclick="${e.kind==='sale'?'deleteSale':e.kind==='expense'?'deleteExpense':'deleteFeedshop'}('${e.id}')" class="w-8 h-8 md:w-6 md:h-6 rounded-lg bg-red-50  text-red-500 ml-1"><i class="fa-solid fa-trash text-[10px]"></i></button>
+        <button onclick="${e.kind==='sale'?'deleteSale':e.kind==='expense'?'deleteExpense':'deleteFeedshop'}('${e.id}')" class="rowbtn bg-red-50  text-red-500 ml-1"><i class="fa-solid fa-trash"></i></button>
 
       </td>
 
