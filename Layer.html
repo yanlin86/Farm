@@ -377,7 +377,7 @@ tailwind.config={
 
   /* ===== data-grid on phones: keep real spreadsheet table (horizontal scroll) ===== */
   table.rtable.data-grid{ display:table !important; width:100% !important; border:0; }
-    table.rtable.data-grid-compact{ width:max-content !important; max-width:none; }
+    table.rtable.data-grid-compact{ table-layout:fixed !important; width:100% !important; }
   .data-grid thead{ display:table-header-group !important; }
   .data-grid tbody{ display:table-row-group !important; }
   .data-grid tfoot{ display:table-footer-group !important; }
@@ -886,10 +886,24 @@ tailwind.config={
 
   /* ===== data-grid: spreadsheet-fit tables — columns hug content, no dead space ===== */
   table.rtable.data-grid{ table-layout:auto !important; width:100% !important; }
-  /* daily table: extra-compact so 14 cols fit */
-  table.rtable.data-grid-compact{ width:max-content !important; max-width:100%; }
-  .data-grid-compact thead th{ font-size:12px !important; padding:6px !important; }
-  .data-grid-compact tbody td, .data-grid-compact tfoot td{ font-size:13px !important; padding:5px 6px !important; }
+  /* daily table: fixed layout, explicit col widths - fits viewport regardless of font */
+  table.rtable.data-grid-compact{ table-layout:fixed !important; width:100% !important; }
+  .data-grid-compact thead th{ font-size:12px !important; padding:6px 4px !important; overflow:hidden; text-overflow:ellipsis; }
+  .data-grid-compact tbody td, .data-grid-compact tfoot td{ font-size:13px !important; padding:5px 4px !important; overflow:hidden; text-overflow:ellipsis; }
+  .data-grid-compact th:nth-child(1), .data-grid-compact td:nth-child(1){ width:100px; }
+  .data-grid-compact th:nth-child(2), .data-grid-compact td:nth-child(2){ width:130px; }
+  .data-grid-compact th:nth-child(3), .data-grid-compact td:nth-child(3){ width:75px; }
+  .data-grid-compact th:nth-child(4), .data-grid-compact td:nth-child(4){ width:55px; }
+  .data-grid-compact th:nth-child(5), .data-grid-compact td:nth-child(5){ width:95px; }
+  .data-grid-compact th:nth-child(6), .data-grid-compact td:nth-child(6){ width:80px; }
+  .data-grid-compact th:nth-child(7), .data-grid-compact td:nth-child(7){ width:85px; }
+  .data-grid-compact th:nth-child(8), .data-grid-compact td:nth-child(8){ width:115px; }
+  .data-grid-compact th:nth-child(9), .data-grid-compact td:nth-child(9){ width:80px; }
+  .data-grid-compact th:nth-child(10), .data-grid-compact td:nth-child(10){ width:65px; }
+  .data-grid-compact th:nth-child(11), .data-grid-compact td:nth-child(11){ width:90px; }
+  .data-grid-compact th:nth-child(12), .data-grid-compact td:nth-child(12){ width:110px; }
+  .data-grid-compact th:nth-child(13), .data-grid-compact td:nth-child(13){ width:100px; }
+  .data-grid-compact th:nth-child(14), .data-grid-compact td:nth-child(14){ width:90px; }
   .data-grid thead th{ white-space:nowrap !important; padding:7px 8px !important; font-size:13px !important; }
   .data-grid tbody td, .data-grid tfoot td{ white-space:nowrap !important; padding:6px 8px !important; font-size:14px !important; vertical-align:middle; }
   .data-grid tbody td > div + div{ font-size:10px !important; line-height:1.3; margin-top:1px; }
