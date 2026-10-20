@@ -1453,6 +1453,28 @@ table thead th:last-child {
   .app-popup form { grid-template-columns:1fr !important; }
 }
 
+/* Keep the drawer trigger visible throughout the phone/tablet layout. */
+@media screen and (max-width:1023.98px) {
+  #appHeader #menuBtn {
+    display:inline-flex !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    flex:0 0 44px !important;
+    width:44px !important;
+    height:44px !important;
+    min-width:44px !important;
+    min-height:44px !important;
+    padding:0 !important;
+    border:1px solid var(--border) !important;
+    border-radius:12px !important;
+    background:var(--surface) !important;
+    color:var(--brand) !important;
+    position:relative;
+    z-index:31;
+  }
+  #appHeader #menuBtn i { display:block; color:inherit !important; font-size:18px !important; }
+}
+
 </style>
 
 </head>
