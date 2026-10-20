@@ -374,19 +374,7 @@ tailwind.config={
   #tabBar .tab-btn .tab-badge{ padding:0 5px !important; font-size:9px !important; line-height:15px }
 
 
-  /* ===== data-grid on phones: keep real spreadsheet table (horizontal scroll) ===== */
-  table.rtable.data-grid{ display:table !important; width:max-content !important; min-width:100%; border:0; }
-  .data-grid thead{ display:table-header-group !important; }
-  .data-grid tbody{ display:table-row-group !important; }
-  .data-grid tfoot{ display:table-footer-group !important; }
-  .data-grid tr{ display:table-row !important; margin:0 !important; padding:0 !important; background:none !important; border:0 !important; border-radius:0 !important; overflow:visible !important; }
-  .data-grid tbody tr:nth-child(even){ background:#f8fafc !important; }
-  .data-grid tbody tr:hover{ background:#eff6ff !important; }
-  .data-grid th, .data-grid td{ display:table-cell !important; width:auto !important; text-align:center !important; white-space:nowrap !important; max-width:none !important; padding:6px 8px !important; border-bottom:1px solid #f1f5f9 !important; }
-  .data-grid td[data-label]::before{ content:none !important; }
-  .rtable-wrap.data-grid-wrap{ overflow-x:auto !important; }
-  .data-grid th, .data-grid td{ font-size:13px !important; }
-  #financeSection .rtable-wrap.data-grid-wrap, #weeklySection .rtable-wrap.data-grid-wrap, #feedshopSection .rtable-wrap.data-grid-wrap{ overflow-x:auto !important; }
+  /* data-grid tables use the same labeled-card layout as other tables on phones. */
 
 }
 
@@ -1387,6 +1375,82 @@ table thead th:last-child {
     overflow-wrap:anywhere;
   }
   #financeGrandWrap > div:last-child { padding:5px 10px 7px !important; }
+}
+
+/* Phone layout aligned with Quail Farm: each record is a readable labeled card. */
+@media screen and (max-width:768px) {
+  #financeSection .rtable-wrap.data-grid-wrap,
+  #weeklySection .rtable-wrap.data-grid-wrap,
+  #feedshopSection .rtable-wrap.data-grid-wrap,
+  .rtable-wrap,
+  .ly-tablewrap {
+    width:100% !important; max-width:100% !important; overflow:visible !important;
+    border:0 !important; border-radius:0 !important; background:transparent !important;
+  }
+  .rtable, table.rtable.data-grid {
+    display:block !important; width:100% !important; min-width:0 !important;
+    table-layout:auto !important; border:0 !important; border-collapse:separate !important;
+    border-spacing:0 !important; background:transparent !important;
+  }
+  .rtable thead { display:none !important; }
+  .rtable, .rtable tbody, .rtable tfoot, .rtable tr {
+    display:block !important; width:100% !important;
+  }
+  .rtable tr {
+    margin:0 0 12px !important; padding:4px 0 !important; overflow:hidden !important;
+    border:1px solid var(--border) !important; border-radius:16px !important;
+    background:#fff !important; box-shadow:0 1px 3px rgba(15,23,42,.07) !important;
+  }
+  .rtable td, .rtable.data-grid td {
+    box-sizing:border-box !important; display:flex !important; align-items:center !important;
+    justify-content:space-between !important; gap:10px !important; width:100% !important;
+    max-width:none !important; min-height:40px; padding:10px 14px !important;
+    border-right:0 !important; border-bottom:1px solid #e2e8f0 !important;
+    text-align:right !important; white-space:normal !important; overflow-wrap:anywhere !important;
+    font-size:15px !important; line-height:1.4 !important;
+  }
+  .rtable.data-grid tbody td:first-child, .rtable.data-grid tfoot td:first-child {
+    position:static !important; left:auto !important; z-index:auto !important;
+    box-shadow:none !important; background:transparent !important;
+  }
+  .rtable tr td:last-child { border-bottom:0 !important; }
+  .rtable td[data-label]::before {
+    content:attr(data-label); flex:0 0 auto; max-width:48%; margin-right:auto;
+    padding-right:10px; color:#1e40af; font-size:13px !important; font-weight:700;
+    line-height:1.35; text-align:left; white-space:normal;
+  }
+  .rtable td[data-label=""]::before { content:none !important; }
+  .rtable tr.rtable-foot-row {
+    border:2px solid #bfdbfe !important; background:#eff6ff !important; font-weight:700;
+  }
+  .rtable tr.rtable-foot-row td { background:transparent !important; }
+  #appHeader h1, #appHeader #hdrTitle { font-size:15px !important; }
+  section h2, .section-title { font-size:16px !important; }
+  button, .btn { font-size:13px !important; }
+  input, select, textarea { font-size:14px !important; }
+  #homeSection .home-kpi { padding:12px !important; }
+}
+
+@media screen and (max-width:640px) {
+  #farmModal, #monthModal, #feedshopMonthModal {
+    align-items:flex-end !important; padding:0 !important;
+  }
+  #farmModal > div, #monthModal > div, #feedshopMonthModal > div {
+    box-sizing:border-box; width:100% !important; max-width:none !important;
+    max-height:calc(100dvh - env(safe-area-inset-top)) !important;
+    overflow-y:auto !important; border-radius:24px 24px 0 0 !important;
+  }
+  #farmModal form {
+    grid-template-columns:1fr !important; gap:12px !important; padding:16px !important;
+    padding-bottom:calc(20px + env(safe-area-inset-bottom)) !important;
+  }
+  #farmModal form > div { grid-column:1 / -1 !important; }
+  .app-popup { padding:0 !important; align-items:flex-end !important; }
+  .app-popup .popup-inner {
+    max-height:94dvh !important; padding-bottom:env(safe-area-inset-bottom);
+    border-radius:24px 24px 0 0 !important;
+  }
+  .app-popup form { grid-template-columns:1fr !important; }
 }
 
 </style>
