@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="my">
+<html lang="my" data-theme="light">
 
 <head>
 
@@ -919,6 +919,35 @@ table thead th:last-child {
     overflow-wrap:anywhere;
   }
   #financeGrandWrap > div:last-child { padding:5px 10px 7px !important; }
+}
+
+/* Match Layer's always-light palette and readable table scale. */
+html[data-theme="light"] { color-scheme:light; }
+body { background:#fafaf9 !important; color:#1c1917 !important; }
+#appHeader { background:#fff !important; border-color:#e5e5e5 !important; }
+#appHeader #hdrTitle { color:#1c1917 !important; }
+.rtable thead th {
+  background:#fff !important;
+  color:#1c1917 !important;
+  font-size:13.5px !important;
+  border-top-color:#bfdbfe !important;
+  border-bottom-color:#bfdbfe !important;
+}
+.rtable thead th:first-child { border-left-color:#bfdbfe !important; }
+.rtable thead th:last-child { border-right-color:#bfdbfe !important; }
+.rtable tbody td, .rtable tfoot td { font-size:14.5px !important; }
+.rtable tbody td.font-bold, .rtable tbody td b { font-size:15px !important; }
+.rtable tbody tr:nth-child(even):not(.rtable-foot-row) { background:#f8fafc !important; }
+.rtable tbody tr:hover:not(.rtable-foot-row) { background:#eff6ff !important; }
+.rtable tr.rtable-foot-row td, .rtable tfoot td {
+  background:#eff6ff !important;
+  border-top-color:#bfdbfe !important;
+}
+.rtable tbody td, .rtable tfoot td { border-bottom-color:#e2e8f0 !important; }
+@media screen and (max-width:768px) {
+  .rtable tr { box-shadow:0 1px 3px rgba(15,23,42,.07) !important; }
+  .rtable td { border-bottom-color:#e2e8f0 !important; }
+  .rtable tr.rtable-foot-row { background:#eff6ff !important; border-color:#bfdbfe !important; }
 }
 
 
