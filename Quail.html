@@ -408,6 +408,9 @@ form label, .app-popup label{ font-size:14px !important; font-weight:700; }
 .app-popup form input, .app-popup form select, .app-popup form textarea{
   min-height:48px !important; font-size:16px !important; background:#f6fcfa; }
 .app-popup form button[type="button"]{ min-height:48px !important; }
+/* Ensure inactive popup dialogs stay hidden even though active dialogs use display:flex. */
+.app-popup.hidden{display:none !important}
+#popupScrim.hidden{display:none !important}
 #popupQuick .popup-inner{ max-width:920px; display:flex; flex-direction:column;
   height:min(640px,calc(100vh - 24px)); max-height:calc(100vh - 24px); overflow:hidden }
 #popupQuick .qk-tabs{ flex:0 0 auto }
