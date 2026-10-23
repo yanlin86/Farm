@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — KSH Server Manager</title>
+<style>
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;max-width:760px;margin:2rem auto;padding:0 1rem;line-height:1.65;color:#1a1a1a;background:#fff}
+h1{font-size:1.55rem;border-bottom:3px solid #00c853;padding-bottom:.4rem}
+h2{font-size:1.12rem;margin-top:1.6rem;color:#0a5c2e}
+code{background:#f0f4f0;padding:.05rem .3rem;border-radius:4px}
+.meta{color:#444}
+</style>
+</head>
+<body>
+<h1>Privacy Policy — KSH Server Manager</h1>
+<p class="meta"><strong>Developer:</strong> Yan Naing (KSH — Knowledge Sharing Hub)<br>
+<strong>App:</strong> KSH Server Manager (package <code>com.ksh.outline_manager</code>)<br>
+<strong>Effective date:</strong> 23 October 2026<br>
+<strong>Contact:</strong> ynl.iwt.mwa@gmail.com</p>
+
+<p>KSH Server Manager is a tool for administering <em>your own</em> servers: it installs and manages Outline, Marzban, 3xUI and SSH services on VPS servers that you control, and includes a VPN client that connects to those same servers. This policy explains what data the app handles and where it goes.</p>
+
+<h2>1. Information we collect</h2>
+<ul>
+<li><strong>Account information (Firebase Authentication).</strong> When you sign in with Google, we receive your email address and a user ID. This is used for sign-in and to check whether your account is approved to download install scripts from our script server.</li>
+<li><strong>Server records you enter.</strong> Server names, host/IP addresses, SSH credentials and panel logins you add are stored <strong>on your device</strong>, encrypted with AES (keys derived with PBKDF2/Argon2). If you use the optional <strong>Firestore Sync</strong>, an <strong>encrypted copy (ciphertext only)</strong> is stored in Cloud Firestore under your own account so you can restore it on another device. We cannot read this ciphertext.</li>
+<li><strong>API tokens you enter.</strong> Cloudflare and DigitalOcean API tokens are stored only in your device's encrypted secure storage. They are sent only to the official Cloudflare/DigitalOcean APIs, only when you use those features.</li>
+<li><strong>Backups.</strong> If you enable Auto Backup, backups are written to storage you choose (your device or your own Google Drive). We do not receive copies.</li>
+<li><strong>VPN usage.</strong> The built-in VPN client connects directly between your device and <em>your own servers</em>. We operate no VPN servers and we do not log, inspect or collect your VPN traffic.</li>
+</ul>
+
+<h2>2. Information we do NOT collect</h2>
+<ul>
+<li>We do not sell, rent or share your personal data with advertisers or data brokers.</li>
+<li>The app contains <strong>no advertising SDKs and no analytics or crash-reporting SDKs</strong>.</li>
+<li>We do not track your location.</li>
+<li>We cannot see your server passwords, SSH keys, panel credentials or API tokens — they never leave your device in readable form.</li>
+</ul>
+
+<h2>3. Third-party services</h2>
+<ul>
+<li><strong>Google Firebase</strong> (Authentication and Cloud Firestore) — sign-in, access approvals, and the optional encrypted sync described above. Handled under Google's Privacy Policy.</li>
+<li><strong>Cloudflare</strong> — install scripts are delivered through our Cloudflare Worker, which verifies your Firebase sign-in token and approval status before serving any file. If you add a Cloudflare account, the app talks to Cloudflare's API with your token.</li>
+<li><strong>DigitalOcean</strong> — if you add a DigitalOcean account, the app talks to DigitalOcean's API with your token to list, create and destroy your droplets.</li>
+<li><strong>Your own servers</strong> — the app connects to servers you specify via SSH and HTTPS.</li>
+</ul>
+
+<h2>4. Data security</h2>
+<p>Credentials at rest on your device are encrypted as described in section 1. The app blocks cleartext (plain HTTP) network traffic except to localhost. Connections to your servers use SSH or TLS where the server supports it.</p>
+
+<h2>5. Your rights and data deletion</h2>
+<p>You may request deletion of your account data (your Firebase sign-in record, access-approval record and any synced ciphertext) at any time by emailing <strong>ynl.iwt.mwa@gmail.com</strong>. Data stored only on your device is removed by clearing the app's data or uninstalling the app. API tokens are removed when you remove the account inside the app's Settings.</p>
+
+<h2>6. Children</h2>
+<p>This app is a server-administration tool intended for adults who manage their own servers. It is not directed at children under 13, and we do not knowingly collect data from children.</p>
+
+<h2>7. Changes to this policy</h2>
+<p>We may update this policy as the app evolves. Material changes will be posted on this page with a new effective date.</p>
+
+<h2>8. Contact</h2>
+<p>Questions about this policy: <strong>ynl.iwt.mwa@gmail.com</strong></p>
+</body>
+</html>
